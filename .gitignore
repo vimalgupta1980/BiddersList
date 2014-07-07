@@ -10,7 +10,7 @@ $RECYCLE.BIN/
 
 # Windows Installer files
 *.cab
-*.msi
+#*.msi
 *.msm
 *.msp
 
@@ -26,8 +26,7 @@ $RECYCLE.BIN/
 .LSOverride
 
 # Icon must ends with two \r.
-Icon
-
+Icon
 # Thumbnails
 ._*
 

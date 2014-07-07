@@ -556,7 +556,7 @@
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8:Syscon Bidders List Application"
         "ProductCode" = "8:{D731A77E-EB8C-4F7D-80DC-A3CF2892F4BE}"
-        "PackageCode" = "8:{EC996DDE-CFC3-481F-9CE6-564DDDFA9D5E}"
+        "PackageCode" = "8:{959B3075-432F-49C6-A82C-7281DAABCA7E}"
         "UpgradeCode" = "8:{B5748990-342E-498C-A985-6F3A71561C66}"
         "AspNetVersion" = "8:4.0.30319.0"
         "RestartWWWService" = "11:FALSE"
