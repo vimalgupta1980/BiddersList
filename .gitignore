@@ -1,0 +1,50 @@
+# Windows image file caches
+Thumbs.db
+ehthumbs.db
+
+# Folder config file
+Desktop.ini
+
+# Recycle Bin used on file shares
+$RECYCLE.BIN/
+
+# Windows Installer files
+*.cab
+*.msi
+*.msm
+*.msp
+
+# =========================
+# Operating System Files
+# =========================
+
+# OSX
+# =========================
+
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# Icon must ends with two \r.
+Icon
+
+# Thumbnails
+._*
+
+# Files that might appear on external disk
+.Spotlight-V100
+.Trashes
+
+*.user
+obj/x86/Debug/BiddersList.csproj.FileListAbsolute.txt
+obj/x86/Debug/BiddersList.csproj.GenerateResource.Cache
+obj/x86/Debug/BiddersList.csprojResolveAssemblyReference.cache
+obj/x86/Debug/BiddersList.exe
+obj/x86/Debug/BiddersList.InputDialog.resources
+obj/x86/Debug/BiddersList.MainForm.resources
+obj/x86/Debug/BiddersList.pdb
+obj/x86/Debug/BiddersList.Properties.Resources.resources
+obj/x86/Release/BiddersList.csproj.FileListAbsolute.txt
+obj/x86/Debug/BiddersList.PageDE.resources
+obj/x86/Debug/BiddersList.PageMain.resources
+obj/x86/Debug/DesignTimeResolveAssemblyReferencesInput.cache
