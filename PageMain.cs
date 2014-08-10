@@ -38,8 +38,8 @@ namespace BiddersList
             lstRegion.DisplayMember = "Name";
             lstRegion.ValueMember = null;
 
-            lstCostCode.DisplayMember = "Name";
-            lstCostCode.ValueMember = null;
+            lstCostCodeDiv.DisplayMember = "Name";
+            lstCostCodeDiv.ValueMember = null;
 
             cboSavedSearches.DisplayMember = "Name";
             cboSavedSearches.ValueMember = null;
@@ -78,7 +78,7 @@ namespace BiddersList
 
             ListBoxData[] vndTypeData = null;
             ListBoxData[] regionData = null;
-            ListBoxData[] costCodeData = null;
+            //ListBoxData[] costCodeData = null;
             //ListBoxData[] savedSearchData = null;
 
             using (var con = SysconCommon.Common.Environment.Connections.GetOLEDBConnection())
@@ -99,13 +99,25 @@ namespace BiddersList
                 lstRegion.DataSource = regionData;
                 lstRegion.SelectedItems.Clear();
 
-                //Fill Cost Code
-                sqlStr = "SELECT DISTINCT TRANSFORM(sbl.CstCde, '999999999') AS CstCde, NVL(cc.CdeNme, PADR('-- No Description --', 30, ' ')) as Desc FROM SysconBidderList sbl LEFT JOIN CstCde cc ON sbl.CstCde = cc.RecNum ORDER BY 1";
-                dt = con.GetDataTable("CostCode", sqlStr);
-                costCodeData = dt.Rows.Select(p => new ListBoxData() { Name = (p[0].ToString().Trim() + " - " + p[1].ToString().Trim()), Value = p[0].ToString() }).ToArray();
-                lstCostCode.DataBindings.Clear();
-                lstCostCode.DataSource = costCodeData;
-                lstCostCode.SelectedItems.Clear();
+                ////Fill Cost Code
+                //sqlStr = "SELECT DISTINCT TRANSFORM(sbl.CstCde, '999999999') AS CstCde, NVL(cc.CdeNme, PADR('-- No Description --', 30, ' ')) as Desc FROM SysconBidderList sbl LEFT JOIN CstCde cc ON sbl.CstCde = cc.RecNum ORDER BY 1";
+                //dt = con.GetDataTable("CostCode", sqlStr);
+                //costCodeData = dt.Rows.Select(p => new ListBoxData() { Name = (p[0].ToString().Trim() + " - " + p[1].ToString().Trim()), Value = p[0].ToString() }).ToArray();
+                //lstCostCodeDiv.DataBindings.Clear();
+                //lstCostCodeDiv.DataSource = costCodeData;
+                //lstCostCodeDiv.SelectedItems.Clear(); 
+
+                //Fill Cost Division
+                sqlStr = "SELECT RecNum, NVL(DivNme, PADR('-- No Description --', 30, ' ')) as DivNme  FROM cstdiv";
+                dt = con.GetDataTable("CostDiv", sqlStr);
+
+                List<ListBoxData> costDivisionData = new List<ListBoxData>();
+                costDivisionData.Add(new ListBoxData() { Name = "0 -- No Description", Value = "0" });
+                costDivisionData.AddRange(dt.Rows.Select(p => new ListBoxData() { Name = (p[0].ToString().Trim() + " - " + p[1].ToString().Trim()), Value = p[0].ToString() }));
+                
+                lstCostCodeDiv.DataBindings.Clear();
+                lstCostCodeDiv.DataSource = costDivisionData;
+                lstCostCodeDiv.SelectedItems.Clear();
 
                 //Fill saved searches combo
                 //sqlStr = "SELECT DISTINCT VndNme FROM SysConSavedList WHERE ! EMPTY(NVL(VndNme,''))";
@@ -145,17 +157,44 @@ namespace BiddersList
 
         private void bttnSave_Click(object sender, EventArgs e)
         {
+            var selectedBidderList = _bidderListData.Where(b => b.Selctd == true).ToList();
+
+            using (var con = SysconCommon.Common.Environment.Connections.GetOLEDBConnection())
+            {
+                DataTable dt = con.GetDataTable("SavedSearches", "Select * from SysconSavedList");
+                if (dt != null && dt.Rows.Count == 0)
+                {
+                    //If this is the first time ask to create the master list
+                    if (MessageBox.Show(this.MainForm, "You have not created a master search list.\nDo you want to create one now?", 
+                                        "Create master search list?",
+                                        MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+                    {
+                        if (selectedBidderList.Count() == 0)
+                        {
+                            MessageBox.Show(this.MainForm, "No Records Marked for Saving \n Mark at least One record", "Nothing to Save",
+                                                MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                        }
+                        else
+                        {
+                            foreach (SysconBidderListDataModel sb in selectedBidderList)
+                            {
+                                con.ExecuteNonQuery("INSERT INTO SysConSavedList (VndNme, ID) VALUES (\"{0}\", {1})", "MASTER", sb.Id);
+                                sb.Selctd = false;
+                            }
+                        }
+                    }
+                    return;
+                }
+            }
+
             //Add to saved searches
             //Check whether any row is selected
-
-            var selectedBidderList = _bidderListData.Where(b => b.Selctd == true).ToList();
             if (selectedBidderList.Count() == 0)
             {
                 MessageBox.Show(this.MainForm, "No Records Marked for Saving \n Mark at least One record", "Nothing to Save",
                                     MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                 return;
             }
-
 
             InputDialog inputDlg = new InputDialog();
             DialogResult result = inputDlg.ShowDialog();
@@ -169,7 +208,8 @@ namespace BiddersList
 
                     if (recCount > 0)
                     {
-                        if (MessageBox.Show(this.MainForm, "This name already exists. Overwrite?", "Warning - Name already exists", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+                        string message = (saveName.ToUpper() == "MASTER") ? "Do you want to override the Master list?" : "This name already exists. Overwrite?";
+                        if (MessageBox.Show(this.MainForm, message, "Override saved list?", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
                         {
                             con.ExecuteNonQuery("DELETE FROM SysConSavedList WHERE UPPER(VndNme) = \"{0}\"", saveName.ToUpper());
 
@@ -236,7 +276,7 @@ namespace BiddersList
         private void lstVendorType_SelectedIndexChanged(object sender, EventArgs e)
         {
             IList<ListBoxData> selectedEntries = lstVendorType.SelectedItems.OfType<ListBoxData>().ToList();
-            ApplyFilter(FilterCriteria.VendorType);
+            ApplyFilter();
         }
 
         private void lstRegion_MouseEnter(object sender, EventArgs e)
@@ -254,30 +294,30 @@ namespace BiddersList
         private void lstRegion_SelectedIndexChanged(object sender, EventArgs e)
         {
             IList<ListBoxData> selectedEntries = lstRegion.SelectedItems.OfType<ListBoxData>().ToList();
-            ApplyFilter(FilterCriteria.Region);
+            ApplyFilter();
         }
 
         private void lstCostCode_MouseEnter(object sender, EventArgs e)
         {
-            lstCostCode.Height = 30 + 12 * 30;
-            lstCostCode.BringToFront();
+            lstCostCodeDiv.Height = 30 + 12 * 25;
+            lstCostCodeDiv.BringToFront();
         }
 
         private void lstCostCode_MouseLeave(object sender, EventArgs e)
         {
-            lstCostCode.Height = 30;
+            lstCostCodeDiv.Height = 30;
         }
 
         private void lstCostCode_SelectedIndexChanged(object sender, EventArgs e)
         {
-            IList<ListBoxData> selectedEntries = lstCostCode.SelectedItems.OfType<ListBoxData>().ToList();
-            ApplyFilter(FilterCriteria.CostCode);
+            IList<ListBoxData> selectedEntries = lstCostCodeDiv.SelectedItems.OfType<ListBoxData>().ToList();
+            ApplyFilter();
         }
 
         private void cboSavedSearches_SelectedIndexChanged(object sender, EventArgs e)
         {
             ListBoxData selected = cboSavedSearches.SelectedItem as ListBoxData;
-            string searchName = selected.Value.Trim();
+            string searchName = selected.Name.Trim();
 
             IList<SysconBidderListDataModel> filteredData = _bidderListData;
             bool filtered = false;
@@ -287,7 +327,7 @@ namespace BiddersList
                 DataTable dt = con.GetDataTable("", "SELECT id FROM SysConSavedList WHERE VndNme = \"{0}\"", searchName);
                 IEnumerable<int> ids = from cc in dt.Rows select (int)cc[0];
 
-                if (searchName == "-NONE-")
+                if (searchName.ToUpper() == "-NONE-")
                 {
                     //No filtering required
                     filtered = false;
@@ -311,7 +351,7 @@ namespace BiddersList
             }
         }
 
-        private void ApplyFilter(FilterCriteria criteria)
+        private void ApplyFilter()
         {
             IList<ListBoxData> vndTypeEntries = lstVendorType.SelectedItems.OfType<ListBoxData>().ToList();
             IEnumerable<string> vndTypes = from v in vndTypeEntries select v.Value.Trim();
@@ -319,26 +359,10 @@ namespace BiddersList
             IList<ListBoxData> regionTypeEntries = lstRegion.SelectedItems.OfType<ListBoxData>().ToList();
             IEnumerable<string> regions = from r in regionTypeEntries select r.Value.Trim();
 
-            IList<ListBoxData> costCodeEntries = lstCostCode.SelectedItems.OfType<ListBoxData>().ToList();
+            IList<ListBoxData> costCodeEntries = lstCostCodeDiv.SelectedItems.OfType<ListBoxData>().ToList();
             IEnumerable<string> costCodes = from cc in costCodeEntries select cc.Value.Trim();
 
             IList<SysconBidderListDataModel> filteredData = _bidderListData;
-
-            //switch (criteria)
-            //{
-            //    case FilterCriteria.VendorType:
-            //        if (lstVendorType.SelectedItems.Count > 0)
-            //            filteredData = _bidderListData.Where(b => vndTypes.ToList().Contains(b.VndTyp.ToString())).ToList();
-            //        break;
-            //    case FilterCriteria.Region:
-            //        if (lstRegion.SelectedItems.Count > 0)
-            //            filteredData = _bidderListData.Where(b => regions.ToList().Contains(b.State_)).ToList();
-            //        break;
-            //    case FilterCriteria.CostCode:
-            //        if (lstCostCode.SelectedItems.Count > 0)
-            //            filteredData = _bidderListData.Where(b => costCodes.ToList().Contains(b.CstCde.ToString())).ToList();
-            //        break;
-            //}
 
             if (lstVendorType.SelectedItems.Count > 0)
                 filteredData = _bidderListData.Where(b => vndTypes.ToList().Contains(b.VndTyp.ToString())).ToList();
@@ -346,8 +370,8 @@ namespace BiddersList
             if (lstRegion.SelectedItems.Count > 0)
                 filteredData = filteredData.Where(b => regions.ToList().Contains(b.State_)).ToList();
 
-            if (lstCostCode.SelectedItems.Count > 0)
-                filteredData = filteredData.Where(b => costCodes.ToList().Contains(b.CstCde.ToString())).ToList();
+            if (lstCostCodeDiv.SelectedItems.Count > 0)
+                filteredData = filteredData.Where(b => costCodes.ToList().Contains(b.CstDiv.ToString())).ToList();
 
             if (filteredData != null)
             {
@@ -438,17 +462,32 @@ namespace BiddersList
 
         private void LoadSavedSearchData()
         {
-            ListBoxData[] savedSearchData = null;
+            List<ListBoxData> savedSearchData = new List<ListBoxData>();
+            savedSearchData.Add(new ListBoxData() { Name = "-None-", Value = "0" });
+
             using (var con = SysconCommon.Common.Environment.Connections.GetOLEDBConnection())
-            {
+            {                
                 //Fill saved searches combo
                 string sqlStr = "SELECT DISTINCT VndNme FROM SysConSavedList WHERE ! EMPTY(NVL(VndNme,''))";
                 DataTable dt = con.GetDataTable("SavedSearches", sqlStr);
-                savedSearchData = dt.Rows.Select(p => new ListBoxData() { Name = p[0].ToString().Trim(), Value = p[0].ToString() }).ToArray();
+                savedSearchData.AddRange(dt.Rows.Select(p => new ListBoxData() { Name = p[0].ToString().Trim(), Value = p[0].ToString() }));
                 cboSavedSearches.DataBindings.Clear();
                 cboSavedSearches.DataSource = savedSearchData;
             }
         }
+
+        private void chkAll_CheckedChanged(object sender, EventArgs e)
+        {
+            if (_bidderListData == null || _bidderListData.Count == 0)
+                return;
+
+            foreach (SysconBidderListDataModel sbl in _bidderListData)
+            {
+                sbl.Selctd = chkAll.Checked;
+            }
+            grdVendor.Refresh();
+        }
+
     }
     
 }

@@ -83,6 +83,7 @@ namespace BiddersList
             txtFax.DataBindings.Clear();
             txtEMail.DataBindings.Clear();
             txtCostCode.DataBindings.Clear();
+            txtDivision.DataBindings.Clear();
             txtRegion.DataBindings.Clear();
         }
 
@@ -102,9 +103,9 @@ namespace BiddersList
             txtFax.DataBindings.Add(new Binding("Text", CurrentRow, "FaxNum"));
             txtEMail.DataBindings.Add(new Binding("Text", CurrentRow, "E_Mail"));
             txtCostCode.DataBindings.Add(new Binding("Text", CurrentRow, "CstCde"));
+            txtDivision.DataBindings.Add(new Binding("Text", CurrentRow, "CstDiv"));
             txtRegion.DataBindings.Add(new Binding("Text", CurrentRow, "Region"));
         }
-
 
 
         private void chkEnableToolTips_Click(object sender, EventArgs e)
@@ -177,6 +178,7 @@ namespace BiddersList
                     dr["FaxNum"]    = CurrentRow.FaxNum;
                     dr["E_Mail"]    = CurrentRow.E_Mail;
                     dr["CstCde"]    = CurrentRow.CstCde;
+                    dr["CstDiv"]    = CurrentRow.CstDiv;
                     dr["Region"]    = CurrentRow.Region;
                     dr["Selctd"]    = false;
 
@@ -191,10 +193,10 @@ namespace BiddersList
                         //update the changed record
                         string updateCommand = "UPDATE SysconBidderList SET Contct=\"{0}\", Addrs1=\"{1}\", Addrs2=\"{2}\", CtyNme=\"{3}\", "
                                                 + "State_=\"{4}\", ZipCde=\"{5}\", PhnNum=\"{6}\",FaxNum=\"{7}\",E_Mail=\"{8}\", "
-                                                + "CstCde={9}, Region=\"{10}\" WHERE Id={11}";
+                                                + "CstCde={9}, Region=\"{10}\", Selctd={11} WHERE Id={12}";
                         con.ExecuteNonQuery(updateCommand, CurrentRow.Contct, CurrentRow.Addrs1, CurrentRow.Addrs2, CurrentRow.CtyNme, CurrentRow.State_,
                                                            CurrentRow.ZipCde, CurrentRow.PhnNum, CurrentRow.FaxNum, CurrentRow.E_Mail, CurrentRow.CstCde, 
-                                                           CurrentRow.Region, CurrentRow.Id);
+                                                           CurrentRow.Region, 0, CurrentRow.Id);
                     }                    
                 }
                 finally
@@ -237,29 +239,29 @@ namespace BiddersList
             //txtContact.Text = (string)this.CurrentRow["Contct"];
             /*
              * .txtVndnme.Value = SysconBidderList.VndNme
-		.txtVndTyp.Value = SysconBidderList.VndTyp
-		.txtContct.Value = NVL(SysconBidderList.Contct, '')
-		.txtAddrs1.Value = NVL(SysconBidderList.Addrs1, '')
-		.txtAddrs2.Value = NVL(SysconBidderList.Addrs2, '')
-		.txtCtyNme.Value = NVL(SysconBidderList.CtyNme, '')
-		.txtState_.Value = NVL(SysconBidderList.State_, '')
-		.txtZipcde.Value = NVL(SysconBidderList.Zipcde, '')
-		.txtPhnNum.Value = NVL(SysconBidderList.PhnNum, '')
-		.txtFaxNum.Value = NVL(SysconBidderList.FaxNum, '')
-		.txtE_Mail.Value = NVL(SysconBidderList.E_Mail, '')
-		.txtCstCde.Value = NVL(SysconBidderList.CstCde, '')
-		.txtRegion.Value = NVL(SysconBidderList.Region, '')
-		.txtContct.Enabled = .T.
-		.txtAddrs1.Enabled = .T.
-		.txtAddrs2.Enabled = .T.
-		.txtCtyNme.Enabled = .T.
-		.txtState_.Enabled = .T.
-		.txtZipcde.Enabled = .T.
-		.txtPhnNum.Enabled = .T.
-		.txtFaxNum.Enabled = .T.
-		.txtE_Mail.Enabled = .T.
-		.txtCstCde.Enabled = .T.
-		.txtRegion.Enabled = .T.
+		    .txtVndTyp.Value = SysconBidderList.VndTyp
+		    .txtContct.Value = NVL(SysconBidderList.Contct, '')
+		    .txtAddrs1.Value = NVL(SysconBidderList.Addrs1, '')
+		    .txtAddrs2.Value = NVL(SysconBidderList.Addrs2, '')
+		    .txtCtyNme.Value = NVL(SysconBidderList.CtyNme, '')
+		    .txtState_.Value = NVL(SysconBidderList.State_, '')
+		    .txtZipcde.Value = NVL(SysconBidderList.Zipcde, '')
+		    .txtPhnNum.Value = NVL(SysconBidderList.PhnNum, '')
+		    .txtFaxNum.Value = NVL(SysconBidderList.FaxNum, '')
+		    .txtE_Mail.Value = NVL(SysconBidderList.E_Mail, '')
+		    .txtCstCde.Value = NVL(SysconBidderList.CstCde, '')
+		    .txtRegion.Value = NVL(SysconBidderList.Region, '')
+		    .txtContct.Enabled = .T.
+		    .txtAddrs1.Enabled = .T.
+		    .txtAddrs2.Enabled = .T.
+		    .txtCtyNme.Enabled = .T.
+		    .txtState_.Enabled = .T.
+		    .txtZipcde.Enabled = .T.
+		    .txtPhnNum.Enabled = .T.
+		    .txtFaxNum.Enabled = .T.
+		    .txtE_Mail.Enabled = .T.
+		    .txtCstCde.Enabled = .T.
+		    .txtRegion.Enabled = .T.
              * */
         }
 

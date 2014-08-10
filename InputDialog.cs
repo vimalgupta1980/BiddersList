@@ -25,6 +25,7 @@ namespace BiddersList
         private void InputDialog_Load(object sender, EventArgs e)
         {
             this.InputString = string.Empty;
+            txtInput.Focus();
         }
 
         private void bttnOk_Click(object sender, EventArgs e)

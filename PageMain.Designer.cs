@@ -28,14 +28,14 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle7 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle8 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle17 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle23 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle24 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle18 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle19 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle20 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle21 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle22 = new System.Windows.Forms.DataGridViewCellStyle();
             this.label1 = new System.Windows.Forms.Label();
             this.txtDataDir = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
@@ -56,7 +56,8 @@
             this.bttnDir = new System.Windows.Forms.Button();
             this.lstVendorType = new System.Windows.Forms.ListBox();
             this.lstRegion = new System.Windows.Forms.ListBox();
-            this.lstCostCode = new System.Windows.Forms.ListBox();
+            this.lstCostCodeDiv = new System.Windows.Forms.ListBox();
+            this.chkAll = new System.Windows.Forms.CheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.grdVendor)).BeginInit();
             this.SuspendLayout();
             // 
@@ -104,9 +105,9 @@
             this.label4.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Bold);
             this.label4.Location = new System.Drawing.Point(13, 119);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(65, 15);
+            this.label4.Size = new System.Drawing.Size(51, 15);
             this.label4.TabIndex = 4;
-            this.label4.Text = "Cost Code";
+            this.label4.Text = "Division";
             // 
             // label5
             // 
@@ -133,14 +134,14 @@
             this.grdVendor.AllowUserToDeleteRows = false;
             this.grdVendor.AllowUserToResizeRows = false;
             this.grdVendor.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.Raised;
-            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle1.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Bold);
-            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.grdVendor.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle17.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle17.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle17.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Bold);
+            dataGridViewCellStyle17.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle17.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle17.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle17.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.grdVendor.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle17;
             this.grdVendor.ColumnHeadersHeight = 28;
             this.grdVendor.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
             this.grdVendor.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
@@ -149,27 +150,27 @@
             this.clmCostCode,
             this.clmRegion,
             this.clmSelect});
-            dataGridViewCellStyle7.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle7.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle7.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle7.ForeColor = System.Drawing.Color.Black;
-            dataGridViewCellStyle7.SelectionBackColor = System.Drawing.Color.White;
-            dataGridViewCellStyle7.SelectionForeColor = System.Drawing.Color.Black;
-            dataGridViewCellStyle7.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.grdVendor.DefaultCellStyle = dataGridViewCellStyle7;
+            dataGridViewCellStyle23.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle23.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle23.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle23.ForeColor = System.Drawing.Color.Black;
+            dataGridViewCellStyle23.SelectionBackColor = System.Drawing.Color.White;
+            dataGridViewCellStyle23.SelectionForeColor = System.Drawing.Color.Black;
+            dataGridViewCellStyle23.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.grdVendor.DefaultCellStyle = dataGridViewCellStyle23;
             this.grdVendor.EditMode = System.Windows.Forms.DataGridViewEditMode.EditOnEnter;
             this.grdVendor.GridColor = System.Drawing.SystemColors.ControlLightLight;
             this.grdVendor.Location = new System.Drawing.Point(16, 151);
             this.grdVendor.MultiSelect = false;
             this.grdVendor.Name = "grdVendor";
-            dataGridViewCellStyle8.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle8.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle8.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle8.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle8.SelectionBackColor = System.Drawing.SystemColors.ControlLightLight;
-            dataGridViewCellStyle8.SelectionForeColor = System.Drawing.SystemColors.MenuHighlight;
-            dataGridViewCellStyle8.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.grdVendor.RowHeadersDefaultCellStyle = dataGridViewCellStyle8;
+            dataGridViewCellStyle24.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle24.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle24.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle24.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle24.SelectionBackColor = System.Drawing.SystemColors.ControlLightLight;
+            dataGridViewCellStyle24.SelectionForeColor = System.Drawing.SystemColors.MenuHighlight;
+            dataGridViewCellStyle24.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.grdVendor.RowHeadersDefaultCellStyle = dataGridViewCellStyle24;
             this.grdVendor.RowHeadersVisible = false;
             this.grdVendor.RowTemplate.DefaultCellStyle.ForeColor = System.Drawing.Color.Black;
             this.grdVendor.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
@@ -178,8 +179,8 @@
             // 
             // clmVendor
             // 
-            dataGridViewCellStyle2.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.clmVendor.DefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle18.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.clmVendor.DefaultCellStyle = dataGridViewCellStyle18;
             this.clmVendor.HeaderText = "Vendor";
             this.clmVendor.Name = "clmVendor";
             this.clmVendor.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Programmatic;
@@ -187,8 +188,8 @@
             // 
             // clmAddr
             // 
-            dataGridViewCellStyle3.Font = new System.Drawing.Font("Arial", 9F);
-            this.clmAddr.DefaultCellStyle = dataGridViewCellStyle3;
+            dataGridViewCellStyle19.Font = new System.Drawing.Font("Arial", 9F);
+            this.clmAddr.DefaultCellStyle = dataGridViewCellStyle19;
             this.clmAddr.HeaderText = "Address";
             this.clmAddr.Name = "clmAddr";
             this.clmAddr.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Programmatic;
@@ -196,8 +197,8 @@
             // 
             // clmCostCode
             // 
-            dataGridViewCellStyle4.Font = new System.Drawing.Font("Arial", 9F);
-            this.clmCostCode.DefaultCellStyle = dataGridViewCellStyle4;
+            dataGridViewCellStyle20.Font = new System.Drawing.Font("Arial", 9F);
+            this.clmCostCode.DefaultCellStyle = dataGridViewCellStyle20;
             this.clmCostCode.HeaderText = "Cost Code";
             this.clmCostCode.Name = "clmCostCode";
             this.clmCostCode.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Programmatic;
@@ -205,8 +206,8 @@
             // 
             // clmRegion
             // 
-            dataGridViewCellStyle5.Font = new System.Drawing.Font("Arial", 9F);
-            this.clmRegion.DefaultCellStyle = dataGridViewCellStyle5;
+            dataGridViewCellStyle21.Font = new System.Drawing.Font("Arial", 9F);
+            this.clmRegion.DefaultCellStyle = dataGridViewCellStyle21;
             this.clmRegion.HeaderText = "Region";
             this.clmRegion.Name = "clmRegion";
             this.clmRegion.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Programmatic;
@@ -214,10 +215,10 @@
             // 
             // clmSelect
             // 
-            dataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle6.Font = new System.Drawing.Font("Arial", 9F);
-            dataGridViewCellStyle6.NullValue = false;
-            this.clmSelect.DefaultCellStyle = dataGridViewCellStyle6;
+            dataGridViewCellStyle22.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle22.Font = new System.Drawing.Font("Arial", 9F);
+            dataGridViewCellStyle22.NullValue = false;
+            this.clmSelect.DefaultCellStyle = dataGridViewCellStyle22;
             this.clmSelect.HeaderText = "Select";
             this.clmSelect.Name = "clmSelect";
             this.clmSelect.Width = 70;
@@ -251,7 +252,7 @@
             this.bttnSave.Name = "bttnSave";
             this.bttnSave.Size = new System.Drawing.Size(84, 27);
             this.bttnSave.TabIndex = 15;
-            this.bttnSave.Text = "&Save";
+            this.bttnSave.Text = "&Save As";
             this.bttnSave.UseVisualStyleBackColor = true;
             this.bttnSave.Click += new System.EventHandler(this.bttnSave_Click);
             // 
@@ -305,25 +306,38 @@
             this.lstRegion.MouseEnter += new System.EventHandler(this.lstRegion_MouseEnter);
             this.lstRegion.MouseLeave += new System.EventHandler(this.lstRegion_MouseLeave);
             // 
-            // lstCostCode
+            // lstCostCodeDiv
             // 
-            this.lstCostCode.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lstCostCode.FormattingEnabled = true;
-            this.lstCostCode.ItemHeight = 15;
-            this.lstCostCode.Location = new System.Drawing.Point(109, 113);
-            this.lstCostCode.Name = "lstCostCode";
-            this.lstCostCode.SelectionMode = System.Windows.Forms.SelectionMode.MultiExtended;
-            this.lstCostCode.Size = new System.Drawing.Size(306, 19);
-            this.lstCostCode.TabIndex = 21;
-            this.lstCostCode.SelectedIndexChanged += new System.EventHandler(this.lstCostCode_SelectedIndexChanged);
-            this.lstCostCode.MouseEnter += new System.EventHandler(this.lstCostCode_MouseEnter);
-            this.lstCostCode.MouseLeave += new System.EventHandler(this.lstCostCode_MouseLeave);
+            this.lstCostCodeDiv.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lstCostCodeDiv.FormattingEnabled = true;
+            this.lstCostCodeDiv.ItemHeight = 15;
+            this.lstCostCodeDiv.Location = new System.Drawing.Point(109, 113);
+            this.lstCostCodeDiv.Name = "lstCostCodeDiv";
+            this.lstCostCodeDiv.SelectionMode = System.Windows.Forms.SelectionMode.MultiExtended;
+            this.lstCostCodeDiv.Size = new System.Drawing.Size(306, 19);
+            this.lstCostCodeDiv.TabIndex = 21;
+            this.lstCostCodeDiv.SelectedIndexChanged += new System.EventHandler(this.lstCostCode_SelectedIndexChanged);
+            this.lstCostCodeDiv.MouseEnter += new System.EventHandler(this.lstCostCode_MouseEnter);
+            this.lstCostCodeDiv.MouseLeave += new System.EventHandler(this.lstCostCode_MouseLeave);
+            // 
+            // chkAll
+            // 
+            this.chkAll.AutoSize = true;
+            this.chkAll.Location = new System.Drawing.Point(757, 183);
+            this.chkAll.Name = "chkAll";
+            this.chkAll.Size = new System.Drawing.Size(37, 17);
+            this.chkAll.TabIndex = 22;
+            this.chkAll.Text = "All";
+            this.chkAll.UseVisualStyleBackColor = true;
+            this.chkAll.Visible = false;
+            this.chkAll.CheckedChanged += new System.EventHandler(this.chkAll_CheckedChanged);
             // 
             // PageMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.Controls.Add(this.lstCostCode);
+            this.Controls.Add(this.chkAll);
+            this.Controls.Add(this.lstCostCodeDiv);
             this.Controls.Add(this.lstRegion);
             this.Controls.Add(this.lstVendorType);
             this.Controls.Add(this.bttnDir);
@@ -370,6 +384,7 @@
         private System.Windows.Forms.DataGridViewCheckBoxColumn clmSelect;
         private System.Windows.Forms.ListBox lstVendorType;
         private System.Windows.Forms.ListBox lstRegion;
-        private System.Windows.Forms.ListBox lstCostCode;
+        private System.Windows.Forms.ListBox lstCostCodeDiv;
+        private System.Windows.Forms.CheckBox chkAll;
     }
 }

@@ -127,6 +127,13 @@ namespace BiddersList
         }
 
         [ColumnOrder(160)]
+        public decimal CstDiv
+        {
+            get;
+            set;
+        }
+
+        [ColumnOrder(170)]
         public bool Selctd//Selected
         {
             get;

@@ -116,7 +116,6 @@ namespace BiddersList
             }
 
             CompanySetup();
-            //this.pageMain.DataDir = mbapi.smartGetSMBDir();
         }
 
         DataSet _biddersDS = null;
@@ -132,7 +131,7 @@ namespace BiddersList
                         //Create table
                         string createQuery = "CREATE TABLE SysconBidderList FREE (RecNum INT NULL, ID INT AUTOINC UNIQUE, VndTyp N(3,0), VndNme C(40), Contct C(30) NULL, "
                                             + "Addrs1 C(30) NULL, Addrs2 C(30) NULL, CtyNme C(25) NULL, State_ C(2) NULL, ZipCde C(10) NULL, PhnNum C(14) NULL, "
-                                            + "FaxNum C(14) NULL, E_Mail C(75) NULL, Region C(30) NULL, CstCde N(15,0) NULL, Selctd L NULL)";
+                                            + "FaxNum C(14) NULL, E_Mail C(75) NULL, Region C(30) NULL, CstCde N(15,0) NULL, CstDiv N(10, 0), Selctd L NULL)";
                         con.ExecuteNonQuery(createQuery);
 
                         //Create Indexes
@@ -144,18 +143,20 @@ namespace BiddersList
                         con.ExecuteNonQuery("EXECSCRIPT([INDEX ON CstCde TAG CstCde])");
                         con.ExecuteNonQuery("EXECSCRIPT([INDEX ON VndTyp TAG VndTyp])");
                         con.ExecuteNonQuery("EXECSCRIPT([INDEX ON Region TAG Region])");
+                        con.ExecuteNonQuery("EXECSCRIPT([INDEX ON CstDiv TAG CstDiv])");
 
                         con.ExecuteNonQuery("UPDATE SysConBidderList SET Selctd = .F.");
 
                         //Fill data
                         con.ExecuteNonQuery("INSERT INTO SysconbidderList "
                                                 + "(RecNum,VndNme, VndTyp, Addrs1, Addrs2, CtyNme, State_, "
-                                                + "zipcde, PhnNum, FaxNum, E_Mail, Region, CstCde, Selctd) "
+                                                + "zipcde, PhnNum, FaxNum, E_Mail, Region, CstCde, CstDiv, Selctd) "
                                                 + "SELECT ap.RecNum, ap.VndNme, ap.VndTyp, ap.Addrs1, "
                                                 + "ap.Addrs2, ap.CtyNme, ap.state_, ap.zipcde, ap.PhnNum, "
-                                                + "ap.faxnum, ap.E_Mail, ap.State_, ap.CdeDft, .F. "
-                                                + "FROM ActPay	ap left join SysconBidderList sbl "
-                                                + "ON ap.RecNum = sbl.RecNum WHERE ISNULL(sbl.RecNum)");
+                                                + "ap.faxnum, ap.E_Mail, ap.State_, ap.CdeDft,cc.divnum, .F. "
+                                                + "FROM ActPay	ap left join SysconBidderList sbl ON ap.RecNum = sbl.RecNum "
+                                                + "left join CstCde cc ON ap.cdedft = cc.recnum "
+                                                + "WHERE ISNULL(sbl.RecNum)");
                     }
 
                     if (!File.Exists(Path.Combine(dataDir, "SysConSavedList.dbf")))
@@ -165,9 +166,6 @@ namespace BiddersList
                         con.ExecuteNonQuery("EXECSCRIPT([USE SysConSavedList])");
                         con.ExecuteNonQuery("EXECSCRIPT([INDEX ON UPPER(VndNme) TAG BLName])");
                         con.ExecuteNonQuery("EXECSCRIPT([INDEX ON ID TAG ID])");
-
-                        //Fill data
-                        con.ExecuteNonQuery("INSERT INTO SysConSavedList (VndNme, ID) VALUES ('-NONE-', 0)");
                     }
                 }
                 finally
@@ -178,9 +176,6 @@ namespace BiddersList
                 _biddersDS = new DataSet();
 
                 //Fill the SysconBidderList table and add to dataset
-                //System.Data.OleDb.OleDbDataAdapter da = new System.Data.OleDb.OleDbDataAdapter("SELECT * from SysconBidderList order by vndnme", con);
-                //da.Fill(_biddersDS, "SysconBidderList");
-
                 DataTable bidListTable = con.GetDataTable("SysconBidderList", "SELECT * from SysconBidderList order by vndnme");
                 bidListTable.TableName = "SysconBidderList";
                 _biddersDS.Tables.Add(bidListTable);

@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.radioBttnVndName = new System.Windows.Forms.RadioButton();
             this.radioBttnRecNum = new System.Windows.Forms.RadioButton();
@@ -67,6 +67,8 @@
             this.dgVendors = new System.Windows.Forms.DataGridView();
             this.clmRecNum = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.clmVndName = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.txtDivision = new System.Windows.Forms.TextBox();
+            this.label1 = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgVendors)).BeginInit();
             this.SuspendLayout();
@@ -382,7 +384,7 @@
             // txtRegion
             // 
             this.txtRegion.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtRegion.Location = new System.Drawing.Point(391, 309);
+            this.txtRegion.Location = new System.Drawing.Point(391, 341);
             this.txtRegion.Name = "txtRegion";
             this.txtRegion.Size = new System.Drawing.Size(215, 21);
             this.txtRegion.TabIndex = 32;
@@ -391,7 +393,7 @@
             // 
             this.lblRgn.AutoSize = true;
             this.lblRgn.Font = new System.Drawing.Font("Arial", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblRgn.Location = new System.Drawing.Point(332, 313);
+            this.lblRgn.Location = new System.Drawing.Point(332, 343);
             this.lblRgn.Name = "lblRgn";
             this.lblRgn.Size = new System.Drawing.Size(53, 16);
             this.lblRgn.TabIndex = 31;
@@ -424,14 +426,14 @@
             this.dgVendors.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.clmRecNum,
             this.clmVndName});
-            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle2.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dgVendors.DefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle3.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle3.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dgVendors.DefaultCellStyle = dataGridViewCellStyle3;
             this.dgVendors.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically;
             this.dgVendors.GridColor = System.Drawing.SystemColors.ActiveCaptionText;
             this.dgVendors.Location = new System.Drawing.Point(12, 46);
@@ -456,10 +458,30 @@
             this.clmVndName.Name = "clmVndName";
             this.clmVndName.Width = 209;
             // 
+            // txtDivision
+            // 
+            this.txtDivision.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtDivision.Location = new System.Drawing.Point(391, 311);
+            this.txtDivision.Name = "txtDivision";
+            this.txtDivision.Size = new System.Drawing.Size(108, 21);
+            this.txtDivision.TabIndex = 36;
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("Arial", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.Location = new System.Drawing.Point(327, 311);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(58, 16);
+            this.label1.TabIndex = 35;
+            this.label1.Text = "Division";
+            // 
             // PageDE
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.txtDivision);
+            this.Controls.Add(this.label1);
             this.Controls.Add(this.dgVendors);
             this.Controls.Add(this.chkEnableToolTips);
             this.Controls.Add(this.txtRegion);
@@ -544,5 +566,7 @@
         private System.Windows.Forms.DataGridView dgVendors;
         private System.Windows.Forms.DataGridViewTextBoxColumn clmRecNum;
         private System.Windows.Forms.DataGridViewTextBoxColumn clmVndName;
+        private System.Windows.Forms.TextBox txtDivision;
+        private System.Windows.Forms.Label label1;
     }
 }

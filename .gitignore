@@ -69,3 +69,5 @@ Assemblies/Release/BiddersList.exe
 Assemblies/Release/antlr.runtime.dll
 Assemblies/Release/PLUSManaged.dll
 Assemblies/Release/System.Data.SQLite.pdb
+Assemblies/Release/BiddersList.vshost.exe.manifest
+Assemblies/Release/BiddersList.vshost.exe.config
