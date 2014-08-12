@@ -411,20 +411,62 @@ namespace BiddersList
                 range.Value2 = columnHeaders;
                 range.Font.Bold = true;
 
-                //write rows to excel file
-                for (int i = 0; i < selectedBidList.Count; i++)
+                using (var con = SysconCommon.Common.Environment.Connections.GetOLEDBConnection())
                 {
-                    SysconBidderListDataModel tempBidderData = selectedBidList[i];
-                    string[] rowData = { tempBidderData.VndNme.Trim(), tempBidderData.Contct.Trim(), tempBidderData.Addrs1.Trim(), 
+                    int count = 0;
+                    //write rows to excel file
+                    for (int i = 0; i < selectedBidList.Count; i++)
+                    {
+                        SysconBidderListDataModel tempBidderData = selectedBidList[i];
+                        
+                        //Get the details from the vendor contacts table
+                        DataTable dt = con.GetDataTable("Contacts", "Select cntnme, jobttl, PhnNum, E_Mail, FaxNum, ZipCde from vndcnt where recnum={0}", tempBidderData.RecNum);
+                        if (dt.Rows.Count > 0)
+                        {
+                            foreach (DataRow dr in dt.Rows)
+                            {
+                                string jobTitle = (string)dr["jobttl"];
+                                if (!string.IsNullOrEmpty(jobTitle) && jobTitle.ToUpper().Contains("ESTIMATOR"))
+                                {
+                                    tempBidderData.Contct = (string)dr["cntnme"];
+                                    tempBidderData.PhnNum = (string)dr["PhnNum"];
+                                    tempBidderData.E_Mail = (string)dr["E_Mail"];
+                                    tempBidderData.FaxNum = (string)dr["FaxNum"];
+                                }
+                                else
+                                {
+                                    tempBidderData.Contct = "NO ESTIMATOR";
+                                    tempBidderData.PhnNum = (string)dr["PhnNum"];
+                                    tempBidderData.E_Mail = (string)dr["E_Mail"];
+                                    tempBidderData.FaxNum = (string)dr["FaxNum"];
+                                }
+                                string[] rowData = { tempBidderData.VndNme.Trim(), tempBidderData.Contct.Trim(), tempBidderData.Addrs1.Trim(), 
                                          tempBidderData.Addrs2.Trim(), tempBidderData.CtyNme.Trim(), tempBidderData.State_.Trim(),
                                          tempBidderData.ZipCde.Trim(), tempBidderData.PhnNum.Trim(), tempBidderData.FaxNum.Trim(), tempBidderData.E_Mail.Trim()
                                        };
 
-                    range = myWorkSheet.get_Range(string.Format("A{0}:J{1}", i + 2, i + 2));
-                    range.Value2 = rowData;
-                }
+                                range = myWorkSheet.get_Range(string.Format("A{0}:J{1}", count + 2, count + 2));
+                                range.Value2 = rowData;
 
-                successFlag = true;
+                                count++;
+                            }
+                        }
+                        else
+                        {
+                            tempBidderData.Contct = "NO ESTIMATOR";
+
+                            string[] rowData1 = { tempBidderData.VndNme.Trim(), tempBidderData.Contct.Trim(), tempBidderData.Addrs1.Trim(), 
+                                         tempBidderData.Addrs2.Trim(), tempBidderData.CtyNme.Trim(), tempBidderData.State_.Trim(),
+                                         tempBidderData.ZipCde.Trim(), tempBidderData.PhnNum.Trim(), tempBidderData.FaxNum.Trim(), tempBidderData.E_Mail.Trim()
+                                       };
+
+                            range = myWorkSheet.get_Range(string.Format("A{0}:J{1}", count + 2, count + 2));
+                            range.Value2 = rowData1;
+
+                            count++;
+                        }
+                    }
+                }
 
                 //AutoFit column data
                 for (int i = 1; i <= 10; i++)
@@ -432,6 +474,8 @@ namespace BiddersList
                     range = myWorkSheet.get_Range(string.Format("{0}{1}", (char)(64 + i), 1));
                     range.EntireColumn.AutoFit();
                 }
+
+                successFlag = true;
             }
             finally
             {

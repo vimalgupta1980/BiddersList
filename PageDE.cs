@@ -193,10 +193,10 @@ namespace BiddersList
                         //update the changed record
                         string updateCommand = "UPDATE SysconBidderList SET Contct=\"{0}\", Addrs1=\"{1}\", Addrs2=\"{2}\", CtyNme=\"{3}\", "
                                                 + "State_=\"{4}\", ZipCde=\"{5}\", PhnNum=\"{6}\",FaxNum=\"{7}\",E_Mail=\"{8}\", "
-                                                + "CstCde={9}, Region=\"{10}\", Selctd={11} WHERE Id={12}";
+                                                + "CstCde={9}, CstDiv={10}, Region=\"{11}\", Selctd={12} WHERE Id={13}";
                         con.ExecuteNonQuery(updateCommand, CurrentRow.Contct, CurrentRow.Addrs1, CurrentRow.Addrs2, CurrentRow.CtyNme, CurrentRow.State_,
-                                                           CurrentRow.ZipCde, CurrentRow.PhnNum, CurrentRow.FaxNum, CurrentRow.E_Mail, CurrentRow.CstCde, 
-                                                           CurrentRow.Region, 0, CurrentRow.Id);
+                                                           CurrentRow.ZipCde, CurrentRow.PhnNum, CurrentRow.FaxNum, CurrentRow.E_Mail, CurrentRow.CstCde,
+                                                           CurrentRow.CstDiv, CurrentRow.Region, 0, CurrentRow.Id);
                     }                    
                 }
                 finally
@@ -228,41 +228,7 @@ namespace BiddersList
         private void dgVendors_SelectionChanged(object sender, EventArgs e)
         {
             DataGridView dgv = sender as DataGridView;
-            //DataGridViewRow row = dgv.CurrentRow;
-
             CurrentRow = dgVendors.CurrentRow.DataBoundItem as SysconBidderListDataModel;
-
-            //this.CurrentRow = gridData.Tables["SysconBidderList"].Rows.Find(row.Cells[0].Value);
-
-            //txtVndName.Text = (string)this.CurrentRow["VndNme"];
-            //txtVndType.Text = (string)this.CurrentRow["VndTyp"];
-            //txtContact.Text = (string)this.CurrentRow["Contct"];
-            /*
-             * .txtVndnme.Value = SysconBidderList.VndNme
-		    .txtVndTyp.Value = SysconBidderList.VndTyp
-		    .txtContct.Value = NVL(SysconBidderList.Contct, '')
-		    .txtAddrs1.Value = NVL(SysconBidderList.Addrs1, '')
-		    .txtAddrs2.Value = NVL(SysconBidderList.Addrs2, '')
-		    .txtCtyNme.Value = NVL(SysconBidderList.CtyNme, '')
-		    .txtState_.Value = NVL(SysconBidderList.State_, '')
-		    .txtZipcde.Value = NVL(SysconBidderList.Zipcde, '')
-		    .txtPhnNum.Value = NVL(SysconBidderList.PhnNum, '')
-		    .txtFaxNum.Value = NVL(SysconBidderList.FaxNum, '')
-		    .txtE_Mail.Value = NVL(SysconBidderList.E_Mail, '')
-		    .txtCstCde.Value = NVL(SysconBidderList.CstCde, '')
-		    .txtRegion.Value = NVL(SysconBidderList.Region, '')
-		    .txtContct.Enabled = .T.
-		    .txtAddrs1.Enabled = .T.
-		    .txtAddrs2.Enabled = .T.
-		    .txtCtyNme.Enabled = .T.
-		    .txtState_.Enabled = .T.
-		    .txtZipcde.Enabled = .T.
-		    .txtPhnNum.Enabled = .T.
-		    .txtFaxNum.Enabled = .T.
-		    .txtE_Mail.Enabled = .T.
-		    .txtCstCde.Enabled = .T.
-		    .txtRegion.Enabled = .T.
-             * */
         }
 
         private void radioBttnRecNum_CheckedChanged(object sender, EventArgs e)
