@@ -71,3 +71,5 @@ Assemblies/Release/PLUSManaged.dll
 Assemblies/Release/System.Data.SQLite.pdb
 Assemblies/Release/BiddersList.vshost.exe.manifest
 Assemblies/Release/BiddersList.vshost.exe.config
+obj/x86/Release/BiddersList.DropDownListBoxEx.resources
+obj/x86/Release/BiddersList.SelectionDetails.resources

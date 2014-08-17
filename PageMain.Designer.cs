@@ -28,14 +28,14 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle17 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle23 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle24 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle18 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle19 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle20 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle21 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle22 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle7 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle8 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
             this.label1 = new System.Windows.Forms.Label();
             this.txtDataDir = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
@@ -53,11 +53,12 @@
             this.bttnExport = new System.Windows.Forms.Button();
             this.bttnSave = new System.Windows.Forms.Button();
             this.bttnExit = new System.Windows.Forms.Button();
-            this.bttnDir = new System.Windows.Forms.Button();
-            this.lstVendorType = new System.Windows.Forms.ListBox();
-            this.lstRegion = new System.Windows.Forms.ListBox();
-            this.lstCostCodeDiv = new System.Windows.Forms.ListBox();
             this.chkAll = new System.Windows.Forms.CheckBox();
+            this.bttnDir = new System.Windows.Forms.Button();
+            this.ddListVndType = new BiddersList.DropDownListBoxEx();
+            this.lstCostCodeDiv = new BiddersList.DropDownListBox();
+            this.lstRegion = new BiddersList.DropDownListBox();
+            this.lstVendorType = new BiddersList.DropDownListBox();
             ((System.ComponentModel.ISupportInitialize)(this.grdVendor)).BeginInit();
             this.SuspendLayout();
             // 
@@ -134,14 +135,14 @@
             this.grdVendor.AllowUserToDeleteRows = false;
             this.grdVendor.AllowUserToResizeRows = false;
             this.grdVendor.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.Raised;
-            dataGridViewCellStyle17.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle17.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle17.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Bold);
-            dataGridViewCellStyle17.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle17.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle17.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle17.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.grdVendor.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle17;
+            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle1.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Bold);
+            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.grdVendor.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
             this.grdVendor.ColumnHeadersHeight = 28;
             this.grdVendor.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
             this.grdVendor.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
@@ -150,27 +151,27 @@
             this.clmCostCode,
             this.clmRegion,
             this.clmSelect});
-            dataGridViewCellStyle23.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle23.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle23.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle23.ForeColor = System.Drawing.Color.Black;
-            dataGridViewCellStyle23.SelectionBackColor = System.Drawing.Color.White;
-            dataGridViewCellStyle23.SelectionForeColor = System.Drawing.Color.Black;
-            dataGridViewCellStyle23.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.grdVendor.DefaultCellStyle = dataGridViewCellStyle23;
+            dataGridViewCellStyle7.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle7.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle7.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle7.ForeColor = System.Drawing.Color.Black;
+            dataGridViewCellStyle7.SelectionBackColor = System.Drawing.Color.White;
+            dataGridViewCellStyle7.SelectionForeColor = System.Drawing.Color.Black;
+            dataGridViewCellStyle7.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.grdVendor.DefaultCellStyle = dataGridViewCellStyle7;
             this.grdVendor.EditMode = System.Windows.Forms.DataGridViewEditMode.EditOnEnter;
             this.grdVendor.GridColor = System.Drawing.SystemColors.ControlLightLight;
             this.grdVendor.Location = new System.Drawing.Point(16, 151);
             this.grdVendor.MultiSelect = false;
             this.grdVendor.Name = "grdVendor";
-            dataGridViewCellStyle24.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle24.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle24.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle24.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle24.SelectionBackColor = System.Drawing.SystemColors.ControlLightLight;
-            dataGridViewCellStyle24.SelectionForeColor = System.Drawing.SystemColors.MenuHighlight;
-            dataGridViewCellStyle24.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.grdVendor.RowHeadersDefaultCellStyle = dataGridViewCellStyle24;
+            dataGridViewCellStyle8.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle8.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle8.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle8.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle8.SelectionBackColor = System.Drawing.SystemColors.ControlLightLight;
+            dataGridViewCellStyle8.SelectionForeColor = System.Drawing.SystemColors.MenuHighlight;
+            dataGridViewCellStyle8.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.grdVendor.RowHeadersDefaultCellStyle = dataGridViewCellStyle8;
             this.grdVendor.RowHeadersVisible = false;
             this.grdVendor.RowTemplate.DefaultCellStyle.ForeColor = System.Drawing.Color.Black;
             this.grdVendor.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
@@ -179,8 +180,8 @@
             // 
             // clmVendor
             // 
-            dataGridViewCellStyle18.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.clmVendor.DefaultCellStyle = dataGridViewCellStyle18;
+            dataGridViewCellStyle2.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.clmVendor.DefaultCellStyle = dataGridViewCellStyle2;
             this.clmVendor.HeaderText = "Vendor";
             this.clmVendor.Name = "clmVendor";
             this.clmVendor.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Programmatic;
@@ -188,8 +189,8 @@
             // 
             // clmAddr
             // 
-            dataGridViewCellStyle19.Font = new System.Drawing.Font("Arial", 9F);
-            this.clmAddr.DefaultCellStyle = dataGridViewCellStyle19;
+            dataGridViewCellStyle3.Font = new System.Drawing.Font("Arial", 9F);
+            this.clmAddr.DefaultCellStyle = dataGridViewCellStyle3;
             this.clmAddr.HeaderText = "Address";
             this.clmAddr.Name = "clmAddr";
             this.clmAddr.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Programmatic;
@@ -197,8 +198,8 @@
             // 
             // clmCostCode
             // 
-            dataGridViewCellStyle20.Font = new System.Drawing.Font("Arial", 9F);
-            this.clmCostCode.DefaultCellStyle = dataGridViewCellStyle20;
+            dataGridViewCellStyle4.Font = new System.Drawing.Font("Arial", 9F);
+            this.clmCostCode.DefaultCellStyle = dataGridViewCellStyle4;
             this.clmCostCode.HeaderText = "Cost Code";
             this.clmCostCode.Name = "clmCostCode";
             this.clmCostCode.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Programmatic;
@@ -206,8 +207,8 @@
             // 
             // clmRegion
             // 
-            dataGridViewCellStyle21.Font = new System.Drawing.Font("Arial", 9F);
-            this.clmRegion.DefaultCellStyle = dataGridViewCellStyle21;
+            dataGridViewCellStyle5.Font = new System.Drawing.Font("Arial", 9F);
+            this.clmRegion.DefaultCellStyle = dataGridViewCellStyle5;
             this.clmRegion.HeaderText = "Region";
             this.clmRegion.Name = "clmRegion";
             this.clmRegion.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Programmatic;
@@ -215,10 +216,10 @@
             // 
             // clmSelect
             // 
-            dataGridViewCellStyle22.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle22.Font = new System.Drawing.Font("Arial", 9F);
-            dataGridViewCellStyle22.NullValue = false;
-            this.clmSelect.DefaultCellStyle = dataGridViewCellStyle22;
+            dataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle6.Font = new System.Drawing.Font("Arial", 9F);
+            dataGridViewCellStyle6.NullValue = false;
+            this.clmSelect.DefaultCellStyle = dataGridViewCellStyle6;
             this.clmSelect.HeaderText = "Select";
             this.clmSelect.Name = "clmSelect";
             this.clmSelect.Width = 70;
@@ -267,59 +268,6 @@
             this.bttnExit.UseVisualStyleBackColor = true;
             this.bttnExit.Click += new System.EventHandler(this.bttnExit_Click);
             // 
-            // bttnDir
-            // 
-            this.bttnDir.BackgroundImage = global::BiddersList.Properties.Resources.MB7;
-            this.bttnDir.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
-            this.bttnDir.Location = new System.Drawing.Point(732, 15);
-            this.bttnDir.Name = "bttnDir";
-            this.bttnDir.Size = new System.Drawing.Size(22, 22);
-            this.bttnDir.TabIndex = 17;
-            this.bttnDir.UseVisualStyleBackColor = true;
-            this.bttnDir.Click += new System.EventHandler(this.bttnDir_Click);
-            // 
-            // lstVendorType
-            // 
-            this.lstVendorType.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lstVendorType.FormattingEnabled = true;
-            this.lstVendorType.ItemHeight = 15;
-            this.lstVendorType.Location = new System.Drawing.Point(109, 45);
-            this.lstVendorType.Name = "lstVendorType";
-            this.lstVendorType.SelectionMode = System.Windows.Forms.SelectionMode.MultiExtended;
-            this.lstVendorType.Size = new System.Drawing.Size(223, 19);
-            this.lstVendorType.TabIndex = 19;
-            this.lstVendorType.SelectedIndexChanged += new System.EventHandler(this.lstVendorType_SelectedIndexChanged);
-            this.lstVendorType.MouseEnter += new System.EventHandler(this.lstVendorType_MouseEnter);
-            this.lstVendorType.MouseLeave += new System.EventHandler(this.lstVendorType_MouseLeave);
-            // 
-            // lstRegion
-            // 
-            this.lstRegion.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lstRegion.FormattingEnabled = true;
-            this.lstRegion.ItemHeight = 15;
-            this.lstRegion.Location = new System.Drawing.Point(109, 77);
-            this.lstRegion.Name = "lstRegion";
-            this.lstRegion.SelectionMode = System.Windows.Forms.SelectionMode.MultiExtended;
-            this.lstRegion.Size = new System.Drawing.Size(223, 19);
-            this.lstRegion.TabIndex = 20;
-            this.lstRegion.SelectedIndexChanged += new System.EventHandler(this.lstRegion_SelectedIndexChanged);
-            this.lstRegion.MouseEnter += new System.EventHandler(this.lstRegion_MouseEnter);
-            this.lstRegion.MouseLeave += new System.EventHandler(this.lstRegion_MouseLeave);
-            // 
-            // lstCostCodeDiv
-            // 
-            this.lstCostCodeDiv.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lstCostCodeDiv.FormattingEnabled = true;
-            this.lstCostCodeDiv.ItemHeight = 15;
-            this.lstCostCodeDiv.Location = new System.Drawing.Point(109, 113);
-            this.lstCostCodeDiv.Name = "lstCostCodeDiv";
-            this.lstCostCodeDiv.SelectionMode = System.Windows.Forms.SelectionMode.MultiExtended;
-            this.lstCostCodeDiv.Size = new System.Drawing.Size(306, 19);
-            this.lstCostCodeDiv.TabIndex = 21;
-            this.lstCostCodeDiv.SelectedIndexChanged += new System.EventHandler(this.lstCostCode_SelectedIndexChanged);
-            this.lstCostCodeDiv.MouseEnter += new System.EventHandler(this.lstCostCode_MouseEnter);
-            this.lstCostCodeDiv.MouseLeave += new System.EventHandler(this.lstCostCode_MouseLeave);
-            // 
             // chkAll
             // 
             this.chkAll.AutoSize = true;
@@ -332,10 +280,76 @@
             this.chkAll.Visible = false;
             this.chkAll.CheckedChanged += new System.EventHandler(this.chkAll_CheckedChanged);
             // 
+            // bttnDir
+            // 
+            this.bttnDir.BackgroundImage = global::BiddersList.Properties.Resources.MB7;
+            this.bttnDir.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
+            this.bttnDir.Location = new System.Drawing.Point(732, 15);
+            this.bttnDir.Name = "bttnDir";
+            this.bttnDir.Size = new System.Drawing.Size(22, 22);
+            this.bttnDir.TabIndex = 17;
+            this.bttnDir.UseVisualStyleBackColor = true;
+            this.bttnDir.Click += new System.EventHandler(this.bttnDir_Click);
+            // 
+            // ddListVndType
+            // 
+            this.ddListVndType.Location = new System.Drawing.Point(109, 45);
+            this.ddListVndType.Name = "ddListVndType";
+            this.ddListVndType.Size = new System.Drawing.Size(348, 25);
+            this.ddListVndType.TabIndex = 23;
+            this.ddListVndType.Title = null;
+            // 
+            // lstCostCodeDiv
+            // 
+            this.lstCostCodeDiv.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lstCostCodeDiv.FormattingEnabled = true;
+            this.lstCostCodeDiv.ItemHeight = 15;
+            this.lstCostCodeDiv.Location = new System.Drawing.Point(109, 113);
+            this.lstCostCodeDiv.Name = "lstCostCodeDiv";
+            this.lstCostCodeDiv.SelectionMode = System.Windows.Forms.SelectionMode.MultiExtended;
+            this.lstCostCodeDiv.ShowScrollbar = false;
+            this.lstCostCodeDiv.Size = new System.Drawing.Size(306, 19);
+            this.lstCostCodeDiv.TabIndex = 21;
+            this.lstCostCodeDiv.SelectedIndexChanged += new System.EventHandler(this.lstCostCode_SelectedIndexChanged);
+            this.lstCostCodeDiv.MouseEnter += new System.EventHandler(this.lstCostCodeDiv_MouseEnter);
+            this.lstCostCodeDiv.MouseLeave += new System.EventHandler(this.lstCostCodeDiv_MouseLeave);
+            // 
+            // lstRegion
+            // 
+            this.lstRegion.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lstRegion.FormattingEnabled = true;
+            this.lstRegion.ItemHeight = 15;
+            this.lstRegion.Location = new System.Drawing.Point(109, 77);
+            this.lstRegion.Name = "lstRegion";
+            this.lstRegion.SelectionMode = System.Windows.Forms.SelectionMode.MultiExtended;
+            this.lstRegion.ShowScrollbar = false;
+            this.lstRegion.Size = new System.Drawing.Size(306, 19);
+            this.lstRegion.TabIndex = 20;
+            this.lstRegion.SelectedIndexChanged += new System.EventHandler(this.lstRegion_SelectedIndexChanged);
+            this.lstRegion.MouseEnter += new System.EventHandler(this.lstRegion_MouseEnter);
+            this.lstRegion.MouseLeave += new System.EventHandler(this.lstRegion_MouseLeave);
+            // 
+            // lstVendorType
+            // 
+            this.lstVendorType.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lstVendorType.FormattingEnabled = true;
+            this.lstVendorType.ItemHeight = 15;
+            this.lstVendorType.Location = new System.Drawing.Point(489, 45);
+            this.lstVendorType.Name = "lstVendorType";
+            this.lstVendorType.SelectionMode = System.Windows.Forms.SelectionMode.MultiExtended;
+            this.lstVendorType.ShowScrollbar = false;
+            this.lstVendorType.Size = new System.Drawing.Size(223, 19);
+            this.lstVendorType.TabIndex = 19;
+            this.lstVendorType.Visible = false;
+            this.lstVendorType.SelectedIndexChanged += new System.EventHandler(this.lstVendorType_SelectedIndexChanged);
+            this.lstVendorType.MouseEnter += new System.EventHandler(this.lstVendorType_MouseEnter);
+            this.lstVendorType.MouseLeave += new System.EventHandler(this.lstVendorType_MouseLeave);
+            // 
             // PageMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.ddListVndType);
             this.Controls.Add(this.chkAll);
             this.Controls.Add(this.lstCostCodeDiv);
             this.Controls.Add(this.lstRegion);
@@ -382,9 +396,10 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn clmCostCode;
         private System.Windows.Forms.DataGridViewTextBoxColumn clmRegion;
         private System.Windows.Forms.DataGridViewCheckBoxColumn clmSelect;
-        private System.Windows.Forms.ListBox lstVendorType;
-        private System.Windows.Forms.ListBox lstRegion;
-        private System.Windows.Forms.ListBox lstCostCodeDiv;
+        private DropDownListBox lstVendorType;
+        private DropDownListBox lstRegion;
+        private DropDownListBox lstCostCodeDiv;
         private System.Windows.Forms.CheckBox chkAll;
+        private DropDownListBoxEx ddListVndType;
     }
 }

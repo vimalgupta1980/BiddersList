@@ -43,7 +43,10 @@ namespace BiddersList
 
             cboSavedSearches.DisplayMember = "Name";
             cboSavedSearches.ValueMember = null;
+
+            ddListVndType.SelectedIndexChanged += new EventHandler(ddListVndType_SelectedIndexChanged);
         }
+        
 
         public MainForm MainForm
         {
@@ -87,9 +90,11 @@ namespace BiddersList
                 string sqlStr = "SELECT distinct ap.vndtyp, PADC(NVL(vt.TypNme, '--NO DESC LISTED--'),25,' ') as Description FROM actpay ap LEFT JOIN VndTyp vt ON ap.vndtyp = vt.RecNum ORDER BY ap.vndtyp";
                 DataTable dt = con.GetDataTable("VendorType", sqlStr);
                 vndTypeData = dt.Rows.Select(p => new ListBoxData() { Name = (p[0].ToString().Trim() + " - " + p[1].ToString().Trim()), Value = p[0].ToString() }).ToArray();
-                lstVendorType.DataBindings.Clear();
-                lstVendorType.DataSource = vndTypeData;
-                lstVendorType.SelectedItems.Clear();
+                //lstVendorType.DataBindings.Clear();
+                //lstVendorType.DataSource = vndTypeData;
+                //lstVendorType.SelectedItems.Clear();
+
+                ddListVndType.SetDataSource("Vendor Type", vndTypeData);
 
                 //Fill Region
                 sqlStr = "select distinct region from SysConBidderList WHERE ! EMPTY(Region)";
@@ -270,7 +275,11 @@ namespace BiddersList
 
         private void lstVendorType_MouseLeave(object sender, EventArgs e)
         {
-            lstVendorType.Height = 30;
+            //lstVendorType.Height = 30;
+            if (!new Rectangle(new Point(0, 0), lstVendorType.Size).Contains(lstVendorType.PointToClient(Control.MousePosition)))
+            {
+                lstVendorType.Height = 30;
+            }
         }
 
         private void lstVendorType_SelectedIndexChanged(object sender, EventArgs e)
@@ -279,16 +288,30 @@ namespace BiddersList
             ApplyFilter();
         }
 
+        void ddListVndType_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            IList<ListBoxData> selectedEntries = ddListVndType.SelectedItems.OfType<ListBoxData>().ToList();
+            ApplyFilter();
+        }
+
         private void lstRegion_MouseEnter(object sender, EventArgs e)
         {
             lstRegion.Height = 30 + 10 * 30;
             lstRegion.BringToFront();
+            lstRegion.ShowScrollbar = true;
         }
 
         private void lstRegion_MouseLeave(object sender, EventArgs e)
         {
-            lstRegion.Height = 30;
-            lstRegion.SendToBack();
+            //lstRegion.Height = 30;
+            //lstRegion.SendToBack();
+
+            if (!new Rectangle(new Point(0, 0), lstRegion.Size).Contains(lstRegion.PointToClient(Control.MousePosition)))
+            {
+                lstRegion.Height = 30;
+                lstRegion.SendToBack();
+                lstRegion.ShowScrollbar = false;
+            }
         }
 
         private void lstRegion_SelectedIndexChanged(object sender, EventArgs e)
@@ -297,15 +320,18 @@ namespace BiddersList
             ApplyFilter();
         }
 
-        private void lstCostCode_MouseEnter(object sender, EventArgs e)
+        private void lstCostCodeDiv_MouseEnter(object sender, EventArgs e)
         {
             lstCostCodeDiv.Height = 30 + 12 * 25;
             lstCostCodeDiv.BringToFront();
+            lstCostCodeDiv.ShowScrollbar = true;
         }
 
-        private void lstCostCode_MouseLeave(object sender, EventArgs e)
+        private void lstCostCodeDiv_MouseLeave(object sender, EventArgs e)
         {
             lstCostCodeDiv.Height = 30;
+            lstCostCodeDiv.SendToBack();
+            lstCostCodeDiv.ShowScrollbar = false;
         }
 
         private void lstCostCode_SelectedIndexChanged(object sender, EventArgs e)
@@ -353,7 +379,9 @@ namespace BiddersList
 
         private void ApplyFilter()
         {
-            IList<ListBoxData> vndTypeEntries = lstVendorType.SelectedItems.OfType<ListBoxData>().ToList();
+            //IList<ListBoxData> vndTypeEntries = lstVendorType.SelectedItems.OfType<ListBoxData>().ToList();
+
+            IList<ListBoxData> vndTypeEntries = ddListVndType.SelectedItems.OfType<ListBoxData>().ToList();
             IEnumerable<string> vndTypes = from v in vndTypeEntries select v.Value.Trim();
 
             IList<ListBoxData> regionTypeEntries = lstRegion.SelectedItems.OfType<ListBoxData>().ToList();
@@ -364,7 +392,7 @@ namespace BiddersList
 
             IList<SysconBidderListDataModel> filteredData = _bidderListData;
 
-            if (lstVendorType.SelectedItems.Count > 0)
+            if (ddListVndType.SelectedItems.Count > 0)
                 filteredData = _bidderListData.Where(b => vndTypes.ToList().Contains(b.VndTyp.ToString())).ToList();
 
             if (lstRegion.SelectedItems.Count > 0)
@@ -420,7 +448,7 @@ namespace BiddersList
                         SysconBidderListDataModel tempBidderData = selectedBidList[i];
                         
                         //Get the details from the vendor contacts table
-                        DataTable dt = con.GetDataTable("Contacts", "Select cntnme, jobttl, PhnNum, E_Mail, FaxNum, ZipCde from vndcnt where recnum={0}", tempBidderData.RecNum);
+                        DataTable dt = con.GetDataTable("Contacts", "Select cntnme, jobttl, PhnNum, E_Mail, FaxNum from vndcnt where recnum={0}", tempBidderData.RecNum);
                         if (dt.Rows.Count > 0)
                         {
                             foreach (DataRow dr in dt.Rows)

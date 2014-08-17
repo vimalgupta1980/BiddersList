@@ -216,6 +216,8 @@ namespace BiddersList
 
         private void bttnExit_Click(object sender, EventArgs e)
         {
+            //TODO: If the data has changed then we need to save it.
+
             bttnNew.Enabled = true;
             bttnDelete.Enabled = true;
             bttnSave.Enabled = false;

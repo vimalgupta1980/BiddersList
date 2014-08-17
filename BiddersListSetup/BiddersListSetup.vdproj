@@ -508,7 +508,7 @@
             "{1525181F-901A-416C-8A58-119130FE478E}:_4F43DDED193A4165B2D2DF027419DCA2"
             {
             "Name" = "8:#1916"
-            "AlwaysCreate" = "11:FALSE"
+            "AlwaysCreate" = "11:TRUE"
             "Condition" = "8:"
             "Transitive" = "11:FALSE"
             "Property" = "8:DesktopFolder"
@@ -554,9 +554,9 @@
         "Product"
         {
         "Name" = "8:Microsoft Visual Studio"
-        "ProductName" = "8:Syscon Bidders List Application"
+        "ProductName" = "8:Bidders List"
         "ProductCode" = "8:{D731A77E-EB8C-4F7D-80DC-A3CF2892F4BE}"
-        "PackageCode" = "8:{710ABB7C-72A4-42AA-94F4-EF2A56532ED1}"
+        "PackageCode" = "8:{3BA4E1E5-1B9B-4162-B5CD-3E57C3BB993F}"
         "UpgradeCode" = "8:{B5748990-342E-498C-A985-6F3A71561C66}"
         "AspNetVersion" = "8:4.0.30319.0"
         "RestartWWWService" = "11:FALSE"
@@ -564,7 +564,7 @@
         "DetectNewerInstalledVersion" = "11:TRUE"
         "InstallAllUsers" = "11:FALSE"
         "ProductVersion" = "8:1.0.0"
-        "Manufacturer" = "8:Syscon Inc"
+        "Manufacturer" = "8:Syscon"
         "ARPHELPTELEPHONE" = "8:"
         "ARPHELPLINK" = "8:"
         "Title" = "8:Syscon Bidders List Application Setup"
@@ -676,6 +676,20 @@
         }
         "Shortcut"
         {
+            "{970C0BB2-C7D0-45D7-ABFA-7EC378858BC0}:_928839040A8844D29B63FA261A03CA1F"
+            {
+            "Name" = "8:BiddersList"
+            "Arguments" = "8:"
+            "Description" = "8:"
+            "ShowCmd" = "3:1"
+            "IconIndex" = "3:0"
+            "Transitive" = "11:FALSE"
+            "Target" = "8:_1441ACA849C641648B2201A91E1FCFC5"
+            "Folder" = "8:_4F43DDED193A4165B2D2DF027419DCA2"
+            "WorkingFolder" = "8:_B86D636F170847B29703E9B8DE92D8B1"
+            "Icon" = "8:_2E64AFE15D2D44D4AD461F225A5BDDB3"
+            "Feature" = "8:"
+            }
         }
         "UserInterface"
         {

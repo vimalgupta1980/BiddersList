@@ -68,6 +68,21 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Controls\DropDownListBox.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Controls\DropDownListBoxEx.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\DropDownListBoxEx.Designer.cs">
+      <DependentUpon>DropDownListBoxEx.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\SelectionDetails.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Controls\SelectionDetails.Designer.cs">
+      <DependentUpon>SelectionDetails.cs</DependentUpon>
+    </Compile>
     <Compile Include="Enums.cs" />
     <Compile Include="FoxProHelpers.cs" />
     <Compile Include="InputDialog.cs">
@@ -102,6 +117,12 @@
     </Compile>
     <Compile Include="SortableBindingList.cs" />
     <Compile Include="SysconBidderListDataModel.cs" />
+    <EmbeddedResource Include="Controls\DropDownListBoxEx.resx">
+      <DependentUpon>DropDownListBoxEx.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controls\SelectionDetails.resx">
+      <DependentUpon>SelectionDetails.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="InputDialog.resx">
       <DependentUpon>InputDialog.cs</DependentUpon>
     </EmbeddedResource>
