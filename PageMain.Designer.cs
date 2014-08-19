@@ -53,12 +53,11 @@
             this.bttnExport = new System.Windows.Forms.Button();
             this.bttnSave = new System.Windows.Forms.Button();
             this.bttnExit = new System.Windows.Forms.Button();
-            this.chkAll = new System.Windows.Forms.CheckBox();
             this.bttnDir = new System.Windows.Forms.Button();
+            this.bttnRegister = new System.Windows.Forms.Button();
+            this.ddLstCostCodeDiv = new BiddersList.DropDownListBoxEx();
+            this.ddLstRegion = new BiddersList.DropDownListBoxEx();
             this.ddListVndType = new BiddersList.DropDownListBoxEx();
-            this.lstCostCodeDiv = new BiddersList.DropDownListBox();
-            this.lstRegion = new BiddersList.DropDownListBox();
-            this.lstVendorType = new BiddersList.DropDownListBox();
             ((System.ComponentModel.ISupportInitialize)(this.grdVendor)).BeginInit();
             this.SuspendLayout();
             // 
@@ -74,7 +73,7 @@
             // 
             // txtDataDir
             // 
-            this.txtDataDir.Location = new System.Drawing.Point(109, 15);
+            this.txtDataDir.Location = new System.Drawing.Point(107, 17);
             this.txtDataDir.Name = "txtDataDir";
             this.txtDataDir.ReadOnly = true;
             this.txtDataDir.Size = new System.Drawing.Size(606, 20);
@@ -114,7 +113,7 @@
             // 
             this.label5.AutoSize = true;
             this.label5.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label5.Location = new System.Drawing.Point(447, 95);
+            this.label5.Location = new System.Drawing.Point(474, 100);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(100, 15);
             this.label5.TabIndex = 10;
@@ -123,9 +122,9 @@
             // cboSavedSearches
             // 
             this.cboSavedSearches.FormattingEnabled = true;
-            this.cboSavedSearches.Location = new System.Drawing.Point(450, 113);
+            this.cboSavedSearches.Location = new System.Drawing.Point(478, 119);
             this.cboSavedSearches.Name = "cboSavedSearches";
-            this.cboSavedSearches.Size = new System.Drawing.Size(301, 21);
+            this.cboSavedSearches.Size = new System.Drawing.Size(273, 21);
             this.cboSavedSearches.TabIndex = 11;
             this.cboSavedSearches.SelectedIndexChanged += new System.EventHandler(this.cboSavedSearches_SelectedIndexChanged);
             // 
@@ -268,92 +267,60 @@
             this.bttnExit.UseVisualStyleBackColor = true;
             this.bttnExit.Click += new System.EventHandler(this.bttnExit_Click);
             // 
-            // chkAll
-            // 
-            this.chkAll.AutoSize = true;
-            this.chkAll.Location = new System.Drawing.Point(757, 183);
-            this.chkAll.Name = "chkAll";
-            this.chkAll.Size = new System.Drawing.Size(37, 17);
-            this.chkAll.TabIndex = 22;
-            this.chkAll.Text = "All";
-            this.chkAll.UseVisualStyleBackColor = true;
-            this.chkAll.Visible = false;
-            this.chkAll.CheckedChanged += new System.EventHandler(this.chkAll_CheckedChanged);
-            // 
             // bttnDir
             // 
             this.bttnDir.BackgroundImage = global::BiddersList.Properties.Resources.MB7;
             this.bttnDir.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
-            this.bttnDir.Location = new System.Drawing.Point(732, 15);
+            this.bttnDir.Location = new System.Drawing.Point(718, 15);
             this.bttnDir.Name = "bttnDir";
             this.bttnDir.Size = new System.Drawing.Size(22, 22);
             this.bttnDir.TabIndex = 17;
             this.bttnDir.UseVisualStyleBackColor = true;
             this.bttnDir.Click += new System.EventHandler(this.bttnDir_Click);
             // 
+            // bttnRegister
+            // 
+            this.bttnRegister.Font = new System.Drawing.Font("Arial", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.bttnRegister.Location = new System.Drawing.Point(21, 447);
+            this.bttnRegister.Name = "bttnRegister";
+            this.bttnRegister.Size = new System.Drawing.Size(84, 27);
+            this.bttnRegister.TabIndex = 26;
+            this.bttnRegister.Text = "&Register";
+            this.bttnRegister.UseVisualStyleBackColor = true;
+            this.bttnRegister.Click += new System.EventHandler(this.bttnRegister_Click);
+            // 
+            // ddLstCostCodeDiv
+            // 
+            this.ddLstCostCodeDiv.Location = new System.Drawing.Point(107, 119);
+            this.ddLstCostCodeDiv.Name = "ddLstCostCodeDiv";
+            this.ddLstCostCodeDiv.Size = new System.Drawing.Size(348, 26);
+            this.ddLstCostCodeDiv.TabIndex = 25;
+            this.ddLstCostCodeDiv.Title = null;
+            // 
+            // ddLstRegion
+            // 
+            this.ddLstRegion.Location = new System.Drawing.Point(107, 84);
+            this.ddLstRegion.Name = "ddLstRegion";
+            this.ddLstRegion.Size = new System.Drawing.Size(348, 26);
+            this.ddLstRegion.TabIndex = 24;
+            this.ddLstRegion.Title = null;
+            // 
             // ddListVndType
             // 
-            this.ddListVndType.Location = new System.Drawing.Point(109, 45);
+            this.ddListVndType.Location = new System.Drawing.Point(107, 45);
             this.ddListVndType.Name = "ddListVndType";
             this.ddListVndType.Size = new System.Drawing.Size(348, 25);
             this.ddListVndType.TabIndex = 23;
             this.ddListVndType.Title = null;
             // 
-            // lstCostCodeDiv
-            // 
-            this.lstCostCodeDiv.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lstCostCodeDiv.FormattingEnabled = true;
-            this.lstCostCodeDiv.ItemHeight = 15;
-            this.lstCostCodeDiv.Location = new System.Drawing.Point(109, 113);
-            this.lstCostCodeDiv.Name = "lstCostCodeDiv";
-            this.lstCostCodeDiv.SelectionMode = System.Windows.Forms.SelectionMode.MultiExtended;
-            this.lstCostCodeDiv.ShowScrollbar = false;
-            this.lstCostCodeDiv.Size = new System.Drawing.Size(306, 19);
-            this.lstCostCodeDiv.TabIndex = 21;
-            this.lstCostCodeDiv.SelectedIndexChanged += new System.EventHandler(this.lstCostCode_SelectedIndexChanged);
-            this.lstCostCodeDiv.MouseEnter += new System.EventHandler(this.lstCostCodeDiv_MouseEnter);
-            this.lstCostCodeDiv.MouseLeave += new System.EventHandler(this.lstCostCodeDiv_MouseLeave);
-            // 
-            // lstRegion
-            // 
-            this.lstRegion.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lstRegion.FormattingEnabled = true;
-            this.lstRegion.ItemHeight = 15;
-            this.lstRegion.Location = new System.Drawing.Point(109, 77);
-            this.lstRegion.Name = "lstRegion";
-            this.lstRegion.SelectionMode = System.Windows.Forms.SelectionMode.MultiExtended;
-            this.lstRegion.ShowScrollbar = false;
-            this.lstRegion.Size = new System.Drawing.Size(306, 19);
-            this.lstRegion.TabIndex = 20;
-            this.lstRegion.SelectedIndexChanged += new System.EventHandler(this.lstRegion_SelectedIndexChanged);
-            this.lstRegion.MouseEnter += new System.EventHandler(this.lstRegion_MouseEnter);
-            this.lstRegion.MouseLeave += new System.EventHandler(this.lstRegion_MouseLeave);
-            // 
-            // lstVendorType
-            // 
-            this.lstVendorType.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lstVendorType.FormattingEnabled = true;
-            this.lstVendorType.ItemHeight = 15;
-            this.lstVendorType.Location = new System.Drawing.Point(489, 45);
-            this.lstVendorType.Name = "lstVendorType";
-            this.lstVendorType.SelectionMode = System.Windows.Forms.SelectionMode.MultiExtended;
-            this.lstVendorType.ShowScrollbar = false;
-            this.lstVendorType.Size = new System.Drawing.Size(223, 19);
-            this.lstVendorType.TabIndex = 19;
-            this.lstVendorType.Visible = false;
-            this.lstVendorType.SelectedIndexChanged += new System.EventHandler(this.lstVendorType_SelectedIndexChanged);
-            this.lstVendorType.MouseEnter += new System.EventHandler(this.lstVendorType_MouseEnter);
-            this.lstVendorType.MouseLeave += new System.EventHandler(this.lstVendorType_MouseLeave);
-            // 
             // PageMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.bttnRegister);
+            this.Controls.Add(this.ddLstCostCodeDiv);
+            this.Controls.Add(this.ddLstRegion);
             this.Controls.Add(this.ddListVndType);
-            this.Controls.Add(this.chkAll);
-            this.Controls.Add(this.lstCostCodeDiv);
-            this.Controls.Add(this.lstRegion);
-            this.Controls.Add(this.lstVendorType);
             this.Controls.Add(this.bttnDir);
             this.Controls.Add(this.bttnExit);
             this.Controls.Add(this.bttnSave);
@@ -396,10 +363,9 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn clmCostCode;
         private System.Windows.Forms.DataGridViewTextBoxColumn clmRegion;
         private System.Windows.Forms.DataGridViewCheckBoxColumn clmSelect;
-        private DropDownListBox lstVendorType;
-        private DropDownListBox lstRegion;
-        private DropDownListBox lstCostCodeDiv;
-        private System.Windows.Forms.CheckBox chkAll;
         private DropDownListBoxEx ddListVndType;
+        private DropDownListBoxEx ddLstRegion;
+        private DropDownListBoxEx ddLstCostCodeDiv;
+        private System.Windows.Forms.Button bttnRegister;
     }
 }

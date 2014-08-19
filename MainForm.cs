@@ -20,11 +20,13 @@ namespace BiddersList
     {
         private SysconCommon.COMMethods mbapi = new SysconCommon.COMMethods();
         bool loaded = false;
-
-        //private PageMain pageMain;
         private PageDE pageDE;
         private SysconBidderListDataModel _bidderListDataModel = new SysconBidderListDataModel();
+        private string _originalAppTitle = string.Empty;
 
+        /// <summary>
+        /// Ctor
+        /// </summary>
         public MainForm()
         {
             InitializeComponent();
@@ -40,6 +42,8 @@ namespace BiddersList
             this.panelPageContainer.Controls.Add(pageDE);
 
             this.pageMain.SMBDirChanged += new EventHandler(PageMain_SMBDirChanged);
+
+            _originalAppTitle = this.Text;
         }
        
 
@@ -62,8 +66,7 @@ namespace BiddersList
 
         private void pageMain_Load(object sender, EventArgs e)
         {
-            //Fill cboSavedSearches
-            //SELECT DISTINCT VndNme FROM SysConSavedList WHERE ! EMPTY(NVL(VndNme,'')) INTO CURSOR curSave
+
         }
 
         private void MainForm_Load(object sender, EventArgs e)
@@ -79,7 +82,7 @@ namespace BiddersList
             {
                 require_login = true;
                 loaded = true;
-                this.Text += " (version " + product_version + ")";
+                this.Text = _originalAppTitle + " (version " + product_version + ")";
             }
 
             try
@@ -257,16 +260,27 @@ namespace BiddersList
 
 
         #region Licencing
+        
+        public void TryActivation()
+        {
+            var product_id = Env.GetConfigVar("product_id", 0, false);
+            var product_version = Env.GetConfigVar("product_version", "1.0.0.0", false);
+
+            var frm = new SysconCommon.Protection.ProtectionPlusOnlineActivationForm(product_id, product_version);
+            frm.ShowDialog();
+            this.OnLoad(null);
+        }
 
         private void SetupTrial(int daysLeft)
         {
             var msg = string.Format("You have {0} days left to evaluate this software \n Do you want to activate it?", daysLeft);
-            //this.demoLabel.Text = msg;
+
             if (MessageBox.Show(msg, "License info", MessageBoxButtons.YesNo) == System.Windows.Forms.DialogResult.Yes)
             {
                 //Show activation dialog
                 TryActivation();
             }
+            else
             {
                 pageMain.Enabled = true;
                 this.Text = this.Text + string.Format(" - Trial ({0} days remaining)", daysLeft);
@@ -285,23 +299,16 @@ namespace BiddersList
             else
             {
                 this.Text = this.Text + "License expired";
+                this.pageMain.ShowHideRegistrationButton(true);
             }
         }
 
         private void SetupFull()
         {
             pageMain.Enabled = true;
-            //this.demoLabel.Text = "";
-        }
-
-        private void TryActivation()
-        {
-            var product_id = Env.GetConfigVar("product_id", 0, false);
-            var product_version = Env.GetConfigVar("product_version", "1.0.0.0", false);
-
-            var frm = new SysconCommon.Protection.ProtectionPlusOnlineActivationForm(product_id, product_version);
-            frm.ShowDialog();
-            this.OnLoad(null);
+            var product_version = Assembly.GetExecutingAssembly().GetName().Version.ToString();
+            this.Text = _originalAppTitle + " (version " + product_version + ")";
+            this.pageMain.ShowHideRegistrationButton(false);
         }
 
         #endregion

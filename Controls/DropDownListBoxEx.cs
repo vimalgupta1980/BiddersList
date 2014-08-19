@@ -94,21 +94,18 @@ namespace BiddersList
 
         private void DropDownListBoxEx_MouseEnter(object sender, EventArgs e)
         {
-            //this.Height = 33 + 2 * 27;
-            //panel1.Height = this.Height;
             dropDownListBox1.ShowScrollbar = true;
             dropDownListBox1.Height = 30 + 5 * 27;
-            dropDownListBox1.BringToFront();
+            this.BringToFront();
             dropDownListBox1.Focus();
 
             this.Height = dropDownListBox1.Height + 8;
-            //panel1.Height = this.Height -5;
-            //panel1.BringToFront();
         }
 
         private void DropDownListBoxEx_MouseLeave(object sender, EventArgs e)
         {
             dropDownListBox1_MouseLeave(dropDownListBox1, e);
+            this.SendToBack();
         }
 
         private void dropDownListBox1_SelectedIndexChanged(object sender, EventArgs e)

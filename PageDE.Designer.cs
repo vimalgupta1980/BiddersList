@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.radioBttnVndName = new System.Windows.Forms.RadioButton();
             this.radioBttnRecNum = new System.Windows.Forms.RadioButton();
@@ -350,6 +350,7 @@
             this.txtCostCode.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtCostCode.Location = new System.Drawing.Point(391, 281);
             this.txtCostCode.Name = "txtCostCode";
+            this.txtCostCode.ReadOnly = true;
             this.txtCostCode.Size = new System.Drawing.Size(108, 21);
             this.txtCostCode.TabIndex = 28;
             // 
@@ -426,14 +427,14 @@
             this.dgVendors.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.clmRecNum,
             this.clmVndName});
-            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle3.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle3.ForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dgVendors.DefaultCellStyle = dataGridViewCellStyle3;
+            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle2.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dgVendors.DefaultCellStyle = dataGridViewCellStyle2;
             this.dgVendors.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically;
             this.dgVendors.GridColor = System.Drawing.SystemColors.ActiveCaptionText;
             this.dgVendors.Location = new System.Drawing.Point(12, 46);
@@ -463,6 +464,7 @@
             this.txtDivision.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtDivision.Location = new System.Drawing.Point(391, 311);
             this.txtDivision.Name = "txtDivision";
+            this.txtDivision.ReadOnly = true;
             this.txtDivision.Size = new System.Drawing.Size(108, 21);
             this.txtDivision.TabIndex = 36;
             // 

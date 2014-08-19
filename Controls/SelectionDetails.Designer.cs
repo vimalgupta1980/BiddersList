@@ -128,6 +128,7 @@
             this.Controls.Add(this.lstSelected);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
+            this.MaximumSize = new System.Drawing.Size(490, 345);
             this.MinimizeBox = false;
             this.Name = "SelectionDetails";
             this.ShowInTaskbar = false;

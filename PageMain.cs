@@ -17,7 +17,9 @@ using SysconCommon.Common.Environment;
 
 namespace BiddersList
 {
-
+    /// <summary>
+    /// The main page of BidderList application
+    /// </summary>
     public partial class PageMain : UserControl
     {
         public event EventHandler SMBDirChanged;
@@ -32,27 +34,26 @@ namespace BiddersList
         {
             InitializeComponent();
 
-            lstVendorType.DisplayMember = "Name";
-            lstVendorType.ValueMember = null;
-
-            lstRegion.DisplayMember = "Name";
-            lstRegion.ValueMember = null;
-
-            lstCostCodeDiv.DisplayMember = "Name";
-            lstCostCodeDiv.ValueMember = null;
-
             cboSavedSearches.DisplayMember = "Name";
             cboSavedSearches.ValueMember = null;
 
             ddListVndType.SelectedIndexChanged += new EventHandler(ddListVndType_SelectedIndexChanged);
+            ddLstRegion.SelectedIndexChanged += new EventHandler(ddLstRegion_SelectedIndexChanged);
+            ddLstCostCodeDiv.SelectedIndexChanged += new EventHandler(ddLstCostCodeDiv_SelectedIndexChanged);
         }
-        
 
+        #region Properties
+        
         public MainForm MainForm
         {
             get { return this.ParentForm as MainForm; }
         }
         
+        public void ShowHideRegistrationButton(bool isVisible)
+        {
+            bttnRegister.Visible = isVisible;
+        }
+
         public void LoadData(IList<SysconBidderListDataModel> bidListData)
         {
             _bidderListData = bidListData;
@@ -81,8 +82,6 @@ namespace BiddersList
 
             ListBoxData[] vndTypeData = null;
             ListBoxData[] regionData = null;
-            //ListBoxData[] costCodeData = null;
-            //ListBoxData[] savedSearchData = null;
 
             using (var con = SysconCommon.Common.Environment.Connections.GetOLEDBConnection())
             {
@@ -90,27 +89,13 @@ namespace BiddersList
                 string sqlStr = "SELECT distinct ap.vndtyp, PADC(NVL(vt.TypNme, '--NO DESC LISTED--'),25,' ') as Description FROM actpay ap LEFT JOIN VndTyp vt ON ap.vndtyp = vt.RecNum ORDER BY ap.vndtyp";
                 DataTable dt = con.GetDataTable("VendorType", sqlStr);
                 vndTypeData = dt.Rows.Select(p => new ListBoxData() { Name = (p[0].ToString().Trim() + " - " + p[1].ToString().Trim()), Value = p[0].ToString() }).ToArray();
-                //lstVendorType.DataBindings.Clear();
-                //lstVendorType.DataSource = vndTypeData;
-                //lstVendorType.SelectedItems.Clear();
-
                 ddListVndType.SetDataSource("Vendor Type", vndTypeData);
 
                 //Fill Region
                 sqlStr = "select distinct region from SysConBidderList WHERE ! EMPTY(Region)";
                 dt = con.GetDataTable("VendorType", sqlStr);
                 regionData = dt.Rows.Select(p => new ListBoxData() { Name = p[0].ToString().Trim(), Value = p[0].ToString().Trim() }).ToArray();
-                lstRegion.DataBindings.Clear();
-                lstRegion.DataSource = regionData;
-                lstRegion.SelectedItems.Clear();
-
-                ////Fill Cost Code
-                //sqlStr = "SELECT DISTINCT TRANSFORM(sbl.CstCde, '999999999') AS CstCde, NVL(cc.CdeNme, PADR('-- No Description --', 30, ' ')) as Desc FROM SysconBidderList sbl LEFT JOIN CstCde cc ON sbl.CstCde = cc.RecNum ORDER BY 1";
-                //dt = con.GetDataTable("CostCode", sqlStr);
-                //costCodeData = dt.Rows.Select(p => new ListBoxData() { Name = (p[0].ToString().Trim() + " - " + p[1].ToString().Trim()), Value = p[0].ToString() }).ToArray();
-                //lstCostCodeDiv.DataBindings.Clear();
-                //lstCostCodeDiv.DataSource = costCodeData;
-                //lstCostCodeDiv.SelectedItems.Clear(); 
+                ddLstRegion.SetDataSource("Region", regionData);
 
                 //Fill Cost Division
                 sqlStr = "SELECT RecNum, NVL(DivNme, PADR('-- No Description --', 30, ' ')) as DivNme  FROM cstdiv";
@@ -119,27 +104,19 @@ namespace BiddersList
                 List<ListBoxData> costDivisionData = new List<ListBoxData>();
                 costDivisionData.Add(new ListBoxData() { Name = "0 -- No Description", Value = "0" });
                 costDivisionData.AddRange(dt.Rows.Select(p => new ListBoxData() { Name = (p[0].ToString().Trim() + " - " + p[1].ToString().Trim()), Value = p[0].ToString() }));
-                
-                lstCostCodeDiv.DataBindings.Clear();
-                lstCostCodeDiv.DataSource = costDivisionData;
-                lstCostCodeDiv.SelectedItems.Clear();
-
-                //Fill saved searches combo
-                //sqlStr = "SELECT DISTINCT VndNme FROM SysConSavedList WHERE ! EMPTY(NVL(VndNme,''))";
-                //dt = con.GetDataTable("SavedSearches", sqlStr);
-                //savedSearchData = dt.Rows.Select(p => new ListBoxData() { Name = p[0].ToString().Trim(), Value = p[0].ToString() }).ToArray();
-                //cboSavedSearches.DataBindings.Clear();
-                //cboSavedSearches.DataSource = savedSearchData;
+                ddLstCostCodeDiv.SetDataSource("Division", costDivisionData);
             }
 
+            //Fill saved searches combo
             this.LoadSavedSearchData();
         }
+        
+        #endregion
 
         private void PageMain_Load(object sender, EventArgs e)
         {
 
         }
-
 
         private void bttnDir_Click(object sender, EventArgs e)
         {
@@ -267,26 +244,6 @@ namespace BiddersList
             this.ParentForm.Close();
         }
 
-        private void lstVendorType_MouseEnter(object sender, EventArgs e)
-        {
-            lstVendorType.Height = 30 + 12 * 30;
-            lstVendorType.BringToFront();
-        }
-
-        private void lstVendorType_MouseLeave(object sender, EventArgs e)
-        {
-            //lstVendorType.Height = 30;
-            if (!new Rectangle(new Point(0, 0), lstVendorType.Size).Contains(lstVendorType.PointToClient(Control.MousePosition)))
-            {
-                lstVendorType.Height = 30;
-            }
-        }
-
-        private void lstVendorType_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            IList<ListBoxData> selectedEntries = lstVendorType.SelectedItems.OfType<ListBoxData>().ToList();
-            ApplyFilter();
-        }
 
         void ddListVndType_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -294,49 +251,15 @@ namespace BiddersList
             ApplyFilter();
         }
 
-        private void lstRegion_MouseEnter(object sender, EventArgs e)
+        void ddLstRegion_SelectedIndexChanged(object sender, EventArgs e)
         {
-            lstRegion.Height = 30 + 10 * 30;
-            lstRegion.BringToFront();
-            lstRegion.ShowScrollbar = true;
-        }
-
-        private void lstRegion_MouseLeave(object sender, EventArgs e)
-        {
-            //lstRegion.Height = 30;
-            //lstRegion.SendToBack();
-
-            if (!new Rectangle(new Point(0, 0), lstRegion.Size).Contains(lstRegion.PointToClient(Control.MousePosition)))
-            {
-                lstRegion.Height = 30;
-                lstRegion.SendToBack();
-                lstRegion.ShowScrollbar = false;
-            }
-        }
-
-        private void lstRegion_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            IList<ListBoxData> selectedEntries = lstRegion.SelectedItems.OfType<ListBoxData>().ToList();
+            IList<ListBoxData> selectedEntries = ddLstRegion.SelectedItems.OfType<ListBoxData>().ToList();
             ApplyFilter();
         }
 
-        private void lstCostCodeDiv_MouseEnter(object sender, EventArgs e)
+        void ddLstCostCodeDiv_SelectedIndexChanged(object sender, EventArgs e)
         {
-            lstCostCodeDiv.Height = 30 + 12 * 25;
-            lstCostCodeDiv.BringToFront();
-            lstCostCodeDiv.ShowScrollbar = true;
-        }
-
-        private void lstCostCodeDiv_MouseLeave(object sender, EventArgs e)
-        {
-            lstCostCodeDiv.Height = 30;
-            lstCostCodeDiv.SendToBack();
-            lstCostCodeDiv.ShowScrollbar = false;
-        }
-
-        private void lstCostCode_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            IList<ListBoxData> selectedEntries = lstCostCodeDiv.SelectedItems.OfType<ListBoxData>().ToList();
+            IList<ListBoxData> selectedEntries = ddLstCostCodeDiv.SelectedItems.OfType<ListBoxData>().ToList();
             ApplyFilter();
         }
 
@@ -377,17 +300,18 @@ namespace BiddersList
             }
         }
 
+        /// <summary>
+        /// Filter the Grid data
+        /// </summary>
         private void ApplyFilter()
         {
-            //IList<ListBoxData> vndTypeEntries = lstVendorType.SelectedItems.OfType<ListBoxData>().ToList();
-
             IList<ListBoxData> vndTypeEntries = ddListVndType.SelectedItems.OfType<ListBoxData>().ToList();
             IEnumerable<string> vndTypes = from v in vndTypeEntries select v.Value.Trim();
 
-            IList<ListBoxData> regionTypeEntries = lstRegion.SelectedItems.OfType<ListBoxData>().ToList();
+            IList<ListBoxData> regionTypeEntries = ddLstRegion.SelectedItems.OfType<ListBoxData>().ToList();
             IEnumerable<string> regions = from r in regionTypeEntries select r.Value.Trim();
 
-            IList<ListBoxData> costCodeEntries = lstCostCodeDiv.SelectedItems.OfType<ListBoxData>().ToList();
+            IList<ListBoxData> costCodeEntries = ddLstCostCodeDiv.SelectedItems.OfType<ListBoxData>().ToList();
             IEnumerable<string> costCodes = from cc in costCodeEntries select cc.Value.Trim();
 
             IList<SysconBidderListDataModel> filteredData = _bidderListData;
@@ -395,10 +319,10 @@ namespace BiddersList
             if (ddListVndType.SelectedItems.Count > 0)
                 filteredData = _bidderListData.Where(b => vndTypes.ToList().Contains(b.VndTyp.ToString())).ToList();
 
-            if (lstRegion.SelectedItems.Count > 0)
+            if (ddLstRegion.SelectedItems.Count > 0)
                 filteredData = filteredData.Where(b => regions.ToList().Contains(b.State_)).ToList();
 
-            if (lstCostCodeDiv.SelectedItems.Count > 0)
+            if (ddLstCostCodeDiv.SelectedItems.Count > 0)
                 filteredData = filteredData.Where(b => costCodes.ToList().Contains(b.CstDiv.ToString())).ToList();
 
             if (filteredData != null)
@@ -419,7 +343,7 @@ namespace BiddersList
             ExcelInterop.Worksheet myWorkSheet = null;
             object missingValue = System.Reflection.Missing.Value;
 
-            string[] columnHeaders = { "Vendor Name", "Contact", "Address1", "Address2", "City", "State", "Zip", "Phone", "Fax", "EMail" };
+            string[] columnHeaders = { "Vendor Name", "Phone", "Address1", "Address2", "City", "State", "Zip", "Contact", "Phone", "Fax", "EMail" };
             int cols = selectedBidList.Count;
             bool successFlag = false;
             try
@@ -434,7 +358,7 @@ namespace BiddersList
                 myWorkbook = myExcelApp.Workbooks.Add();
                 myWorkSheet = (ExcelInterop.Worksheet)myWorkbook.Worksheets.get_Item("Sheet1");
 
-                ExcelInterop.Range range = myWorkSheet.get_Range("A1:J1");
+                ExcelInterop.Range range = myWorkSheet.get_Range("A1:K1");
                 object[,] workingValues = new object[columnHeaders.Length, 1];
                 range.Value2 = columnHeaders;
                 range.Font.Bold = true;
@@ -451,29 +375,36 @@ namespace BiddersList
                         DataTable dt = con.GetDataTable("Contacts", "Select cntnme, jobttl, PhnNum, E_Mail, FaxNum from vndcnt where recnum={0}", tempBidderData.RecNum);
                         if (dt.Rows.Count > 0)
                         {
+                            string[] rowData = null;
+
                             foreach (DataRow dr in dt.Rows)
                             {
                                 string jobTitle = (string)dr["jobttl"];
                                 if (!string.IsNullOrEmpty(jobTitle) && jobTitle.ToUpper().Contains("ESTIMATOR"))
                                 {
                                     tempBidderData.Contct = (string)dr["cntnme"];
-                                    tempBidderData.PhnNum = (string)dr["PhnNum"];
-                                    tempBidderData.E_Mail = (string)dr["E_Mail"];
-                                    tempBidderData.FaxNum = (string)dr["FaxNum"];
+
+                                    rowData = new string[]{  tempBidderData.VndNme.Trim(), tempBidderData.PhnNum.Trim(), tempBidderData.Addrs1.Trim(), 
+                                                             tempBidderData.Addrs2.Trim(), tempBidderData.CtyNme.Trim(), tempBidderData.State_.Trim(),
+                                                             tempBidderData.ZipCde.Trim(), tempBidderData.Contct.Trim(), (string)dr["PhnNum"], 
+                                                             (string)dr["FaxNum"], (string)dr["E_Mail"]
+                                                           };
                                 }
                                 else
                                 {
                                     tempBidderData.Contct = "NO ESTIMATOR";
-                                    tempBidderData.PhnNum = (string)dr["PhnNum"];
-                                    tempBidderData.E_Mail = (string)dr["E_Mail"];
-                                    tempBidderData.FaxNum = (string)dr["FaxNum"];
-                                }
-                                string[] rowData = { tempBidderData.VndNme.Trim(), tempBidderData.Contct.Trim(), tempBidderData.Addrs1.Trim(), 
-                                         tempBidderData.Addrs2.Trim(), tempBidderData.CtyNme.Trim(), tempBidderData.State_.Trim(),
-                                         tempBidderData.ZipCde.Trim(), tempBidderData.PhnNum.Trim(), tempBidderData.FaxNum.Trim(), tempBidderData.E_Mail.Trim()
-                                       };
+                                    //tempBidderData.PhnNum = (string)dr["PhnNum"];
+                                    //tempBidderData.E_Mail = (string)dr["E_Mail"];
+                                    //tempBidderData.FaxNum = (string)dr["FaxNum"];
 
-                                range = myWorkSheet.get_Range(string.Format("A{0}:J{1}", count + 2, count + 2));
+                                    rowData = new string[]{  tempBidderData.VndNme.Trim(), tempBidderData.PhnNum.Trim(), tempBidderData.Addrs1.Trim(), 
+                                                             tempBidderData.Addrs2.Trim(), tempBidderData.CtyNme.Trim(), tempBidderData.State_.Trim(),
+                                                             tempBidderData.ZipCde.Trim(), tempBidderData.Contct.Trim(), string.Empty, 
+                                                             string.Empty, string.Empty
+                                                           };
+                                }                                
+
+                                range = myWorkSheet.get_Range(string.Format("A{0}:K{1}", count + 2, count + 2));
                                 range.Value2 = rowData;
 
                                 count++;
@@ -483,12 +414,13 @@ namespace BiddersList
                         {
                             tempBidderData.Contct = "NO ESTIMATOR";
 
-                            string[] rowData1 = { tempBidderData.VndNme.Trim(), tempBidderData.Contct.Trim(), tempBidderData.Addrs1.Trim(), 
-                                         tempBidderData.Addrs2.Trim(), tempBidderData.CtyNme.Trim(), tempBidderData.State_.Trim(),
-                                         tempBidderData.ZipCde.Trim(), tempBidderData.PhnNum.Trim(), tempBidderData.FaxNum.Trim(), tempBidderData.E_Mail.Trim()
-                                       };
+                            string[] rowData1 = {   tempBidderData.VndNme.Trim(), tempBidderData.PhnNum.Trim(), tempBidderData.Addrs1.Trim(), 
+                                                    tempBidderData.Addrs2.Trim(), tempBidderData.CtyNme.Trim(), tempBidderData.State_.Trim(),
+                                                    tempBidderData.ZipCde.Trim(), tempBidderData.Contct.Trim(), string.Empty, 
+                                                    string.Empty, string.Empty
+                                                };
 
-                            range = myWorkSheet.get_Range(string.Format("A{0}:J{1}", count + 2, count + 2));
+                            range = myWorkSheet.get_Range(string.Format("A{0}:K{1}", count + 2, count + 2));
                             range.Value2 = rowData1;
 
                             count++;
@@ -497,7 +429,7 @@ namespace BiddersList
                 }
 
                 //AutoFit column data
-                for (int i = 1; i <= 10; i++)
+                for (int i = 1; i <= 11; i++)
                 {
                     range = myWorkSheet.get_Range(string.Format("{0}{1}", (char)(64 + i), 1));
                     range.EntireColumn.AutoFit();
@@ -548,16 +480,9 @@ namespace BiddersList
             }
         }
 
-        private void chkAll_CheckedChanged(object sender, EventArgs e)
+        private void bttnRegister_Click(object sender, EventArgs e)
         {
-            if (_bidderListData == null || _bidderListData.Count == 0)
-                return;
-
-            foreach (SysconBidderListDataModel sbl in _bidderListData)
-            {
-                sbl.Selctd = chkAll.Checked;
-            }
-            grdVendor.Refresh();
+            this.MainForm.TryActivation();
         }
 
     }
