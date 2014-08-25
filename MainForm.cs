@@ -72,7 +72,7 @@ namespace BiddersList
         private void MainForm_Load(object sender, EventArgs e)
         {
             // resets it everytime it is run so that the user can't just change to a product they already have a license for
-            Env.SetConfigVar("product_id", 322504);
+            Env.SetConfigVar("product_id", 331600);
 
             var product_id = Env.GetConfigVar("product_id", 0, false);
             var product_version = Assembly.GetExecutingAssembly().GetName().Version.ToString();
