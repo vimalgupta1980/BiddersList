@@ -343,7 +343,7 @@ namespace BiddersList
             ExcelInterop.Worksheet myWorkSheet = null;
             object missingValue = System.Reflection.Missing.Value;
 
-            string[] columnHeaders = { "Vendor Name", "Phone", "Address1", "Address2", "City", "State", "Zip", "Contact", "Phone", "Fax", "EMail" };
+            string[] columnHeaders = { "Vendor Name", "Phone", "Address1", "Address2", "City", "State", "Zip", "Minority Info", "Contact", "Phone", "Fax", "EMail" };
             int cols = selectedBidList.Count;
             bool successFlag = false;
             try
@@ -373,41 +373,55 @@ namespace BiddersList
                         
                         //Get the details from the vendor contacts table
                         DataTable dt = con.GetDataTable("Contacts", "Select cntnme, jobttl, PhnNum, E_Mail, FaxNum from vndcnt where recnum={0}", tempBidderData.RecNum);
+                        var rows = dt.Rows.Select(d => d["jobttl"].ToString().ToUpper().Contains("ESTIMATOR"));
+                        int cnt = rows.Count();
+
                         if (dt.Rows.Count > 0)
                         {
                             string[] rowData = null;
+                            bool estimatorFound = false;
+                            bool alreadyAdded = false;
 
                             foreach (DataRow dr in dt.Rows)
                             {
                                 string jobTitle = (string)dr["jobttl"];
+
                                 if (!string.IsNullOrEmpty(jobTitle) && jobTitle.ToUpper().Contains("ESTIMATOR"))
                                 {
                                     tempBidderData.Contct = (string)dr["cntnme"];
 
                                     rowData = new string[]{  tempBidderData.VndNme.Trim(), tempBidderData.PhnNum.Trim(), tempBidderData.Addrs1.Trim(), 
                                                              tempBidderData.Addrs2.Trim(), tempBidderData.CtyNme.Trim(), tempBidderData.State_.Trim(),
-                                                             tempBidderData.ZipCde.Trim(), tempBidderData.Contct.Trim(), (string)dr["PhnNum"], 
+                                                             tempBidderData.ZipCde.Trim(), "", tempBidderData.Contct.Trim(), (string)dr["PhnNum"], 
                                                              (string)dr["FaxNum"], (string)dr["E_Mail"]
                                                            };
+                                    range = myWorkSheet.get_Range(string.Format("A{0}:K{1}", count + 2, count + 2));
+                                    range.Value2 = rowData;
+
+                                    estimatorFound = true;
+                                    count++;
                                 }
                                 else
                                 {
-                                    tempBidderData.Contct = "NO ESTIMATOR";
-                                    //tempBidderData.PhnNum = (string)dr["PhnNum"];
-                                    //tempBidderData.E_Mail = (string)dr["E_Mail"];
-                                    //tempBidderData.FaxNum = (string)dr["FaxNum"];
+                                    if (!estimatorFound && !alreadyAdded)
+                                    {
+                                        tempBidderData.Contct = "NO ESTIMATOR";
 
-                                    rowData = new string[]{  tempBidderData.VndNme.Trim(), tempBidderData.PhnNum.Trim(), tempBidderData.Addrs1.Trim(), 
+                                        rowData = new string[]{  tempBidderData.VndNme.Trim(), tempBidderData.PhnNum.Trim(), tempBidderData.Addrs1.Trim(), 
                                                              tempBidderData.Addrs2.Trim(), tempBidderData.CtyNme.Trim(), tempBidderData.State_.Trim(),
-                                                             tempBidderData.ZipCde.Trim(), tempBidderData.Contct.Trim(), string.Empty, 
+                                                             tempBidderData.ZipCde.Trim(), "", tempBidderData.Contct.Trim(), string.Empty, 
                                                              string.Empty, string.Empty
                                                            };
-                                }                                
 
-                                range = myWorkSheet.get_Range(string.Format("A{0}:K{1}", count + 2, count + 2));
-                                range.Value2 = rowData;
+                                        range = myWorkSheet.get_Range(string.Format("A{0}:K{1}", count + 2, count + 2));
+                                        range.Value2 = rowData;
+                                        alreadyAdded = true;
+                                        count++;
+                                    }
+                                }
 
-                                count++;
+                                //range = myWorkSheet.get_Range(string.Format("A{0}:K{1}", count + 2, count + 2));
+                                //range.Value2 = rowData;                                
                             }
                         }
                         else
@@ -416,7 +430,7 @@ namespace BiddersList
 
                             string[] rowData1 = {   tempBidderData.VndNme.Trim(), tempBidderData.PhnNum.Trim(), tempBidderData.Addrs1.Trim(), 
                                                     tempBidderData.Addrs2.Trim(), tempBidderData.CtyNme.Trim(), tempBidderData.State_.Trim(),
-                                                    tempBidderData.ZipCde.Trim(), tempBidderData.Contct.Trim(), string.Empty, 
+                                                    tempBidderData.ZipCde.Trim(), "", tempBidderData.Contct.Trim(), string.Empty, 
                                                     string.Empty, string.Empty
                                                 };
 
