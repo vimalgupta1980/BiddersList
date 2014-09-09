@@ -26,6 +26,7 @@ namespace BiddersList
 
         IList<SysconBidderListDataModel> _bidderListData = null;
         private BindingSource _bindingSrc = null;
+        private Dictionary<int, string> _minStatus = null;
 
         /// <summary>
         /// 
@@ -40,6 +41,12 @@ namespace BiddersList
             ddListVndType.SelectedIndexChanged += new EventHandler(ddListVndType_SelectedIndexChanged);
             ddLstRegion.SelectedIndexChanged += new EventHandler(ddLstRegion_SelectedIndexChanged);
             ddLstCostCodeDiv.SelectedIndexChanged += new EventHandler(ddLstCostCodeDiv_SelectedIndexChanged);
+
+            _minStatus = new Dictionary<int, string>();
+            _minStatus.Add(0, "0 – None");
+            _minStatus.Add(1, "1 – Minority Owned");
+            _minStatus.Add(2, "2  - Women Owned");
+            _minStatus.Add(3, "3 – Disabled Vet");
         }
 
         #region Properties
@@ -343,7 +350,7 @@ namespace BiddersList
             ExcelInterop.Worksheet myWorkSheet = null;
             object missingValue = System.Reflection.Missing.Value;
 
-            string[] columnHeaders = { "Vendor Name", "Phone", "Address1", "Address2", "City", "State", "Zip", "Minority Info", "Contact", "Phone", "Fax", "EMail" };
+            string[] columnHeaders = { "Division", "Division Description", "Vendor Name", "Phone", "Address1", "Address2", "City", "State", "Zip", "Minority Info", "Contact", "Phone", "Fax", "EMail" };
             int cols = selectedBidList.Count;
             bool successFlag = false;
             try
@@ -358,7 +365,7 @@ namespace BiddersList
                 myWorkbook = myExcelApp.Workbooks.Add();
                 myWorkSheet = (ExcelInterop.Worksheet)myWorkbook.Worksheets.get_Item("Sheet1");
 
-                ExcelInterop.Range range = myWorkSheet.get_Range("A1:K1");
+                ExcelInterop.Range range = myWorkSheet.get_Range("A1:M1");
                 object[,] workingValues = new object[columnHeaders.Length, 1];
                 range.Value2 = columnHeaders;
                 range.Font.Bold = true;
@@ -376,6 +383,21 @@ namespace BiddersList
                         var rows = dt.Rows.Select(d => d["jobttl"].ToString().ToUpper().Contains("ESTIMATOR"));
                         int cnt = rows.Count();
 
+                        //Get usrdf1, usrdf2 and minsts from Actpay table
+                        DataTable dtActPay = con.GetDataTable("ActPay", "SELECT usrdf1, usrdf2, minsts FROM actpay WHERE recnum={0}", tempBidderData.RecNum);
+                        string usrDef1 = string.Empty;
+                        string usrDef2 = string.Empty;
+                        decimal minstsVal = 0;
+                        string minSts = _minStatus[0];
+                        DataRow drActPay = (dtActPay.Rows.Count > 0) ? dtActPay.Rows[0] : null;
+                        if (drActPay != null)
+                        {
+                            usrDef1 = (drActPay["usrdf1"] != null) ? (string)drActPay["usrdf1"] : string.Empty;
+                            usrDef2 = (drActPay["usrdf1"] != null) ? (string)drActPay["usrdf1"] : string.Empty;
+                            minstsVal = (drActPay["minsts"] != null) ? (decimal)drActPay["minsts"] : 0;
+                            minSts = _minStatus[(int)minstsVal];
+                        }
+
                         if (dt.Rows.Count > 0)
                         {
                             string[] rowData = null;
@@ -390,12 +412,12 @@ namespace BiddersList
                                 {
                                     tempBidderData.Contct = (string)dr["cntnme"];
 
-                                    rowData = new string[]{  tempBidderData.VndNme.Trim(), tempBidderData.PhnNum.Trim(), tempBidderData.Addrs1.Trim(), 
+                                    rowData = new string[]{  usrDef1, usrDef2, tempBidderData.VndNme.Trim(), tempBidderData.PhnNum.Trim(), tempBidderData.Addrs1.Trim(), 
                                                              tempBidderData.Addrs2.Trim(), tempBidderData.CtyNme.Trim(), tempBidderData.State_.Trim(),
-                                                             tempBidderData.ZipCde.Trim(), "", tempBidderData.Contct.Trim(), (string)dr["PhnNum"], 
+                                                             tempBidderData.ZipCde.Trim(), minSts, tempBidderData.Contct.Trim(), (string)dr["PhnNum"], 
                                                              (string)dr["FaxNum"], (string)dr["E_Mail"]
                                                            };
-                                    range = myWorkSheet.get_Range(string.Format("A{0}:K{1}", count + 2, count + 2));
+                                    range = myWorkSheet.get_Range(string.Format("A{0}:M{1}", count + 2, count + 2));
                                     range.Value2 = rowData;
 
                                     estimatorFound = true;
@@ -407,13 +429,13 @@ namespace BiddersList
                                     {
                                         tempBidderData.Contct = "NO ESTIMATOR";
 
-                                        rowData = new string[]{  tempBidderData.VndNme.Trim(), tempBidderData.PhnNum.Trim(), tempBidderData.Addrs1.Trim(), 
+                                        rowData = new string[]{  usrDef1, usrDef2, tempBidderData.VndNme.Trim(), tempBidderData.PhnNum.Trim(), tempBidderData.Addrs1.Trim(), 
                                                              tempBidderData.Addrs2.Trim(), tempBidderData.CtyNme.Trim(), tempBidderData.State_.Trim(),
-                                                             tempBidderData.ZipCde.Trim(), "", tempBidderData.Contct.Trim(), string.Empty, 
+                                                             tempBidderData.ZipCde.Trim(), minSts, tempBidderData.Contct.Trim(), string.Empty, 
                                                              string.Empty, string.Empty
                                                            };
 
-                                        range = myWorkSheet.get_Range(string.Format("A{0}:K{1}", count + 2, count + 2));
+                                        range = myWorkSheet.get_Range(string.Format("A{0}:M{1}", count + 2, count + 2));
                                         range.Value2 = rowData;
                                         alreadyAdded = true;
                                         count++;
@@ -428,13 +450,13 @@ namespace BiddersList
                         {
                             tempBidderData.Contct = "NO ESTIMATOR";
 
-                            string[] rowData1 = {   tempBidderData.VndNme.Trim(), tempBidderData.PhnNum.Trim(), tempBidderData.Addrs1.Trim(), 
+                            string[] rowData1 = {   usrDef1, usrDef2, tempBidderData.VndNme.Trim(), tempBidderData.PhnNum.Trim(), tempBidderData.Addrs1.Trim(), 
                                                     tempBidderData.Addrs2.Trim(), tempBidderData.CtyNme.Trim(), tempBidderData.State_.Trim(),
-                                                    tempBidderData.ZipCde.Trim(), "", tempBidderData.Contct.Trim(), string.Empty, 
+                                                    tempBidderData.ZipCde.Trim(), minSts, tempBidderData.Contct.Trim(), string.Empty, 
                                                     string.Empty, string.Empty
                                                 };
 
-                            range = myWorkSheet.get_Range(string.Format("A{0}:K{1}", count + 2, count + 2));
+                            range = myWorkSheet.get_Range(string.Format("A{0}:M{1}", count + 2, count + 2));
                             range.Value2 = rowData1;
 
                             count++;
@@ -443,7 +465,7 @@ namespace BiddersList
                 }
 
                 //AutoFit column data
-                for (int i = 1; i <= 11; i++)
+                for (int i = 1; i <= 14; i++)
                 {
                     range = myWorkSheet.get_Range(string.Format("{0}{1}", (char)(64 + i), 1));
                     range.EntireColumn.AutoFit();
